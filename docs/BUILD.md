@@ -14,6 +14,16 @@ Install packages:
 - sudo apt-get install --quiet --assume-yes git
 - sudo apt-get install --quiet --assume-yes build-essential
 - sudo apt-get install --quiet --assume-yes qt5-default qtbase5-dev qttools5-dev-tools qtscript5-dev libqt5svg5-dev
+- sudo apt-get install  --quiet --assume-yes \
+  build-essential \
+  qtbase5-dev \
+  qtbase5-dev-tools \
+  qttools5-dev-tools \
+  libqt5svg5-dev \
+  libqt5opengl5-dev \
+  qtscript5-dev \
+  libqt5sql5-sqlite \
+  libgl1-mesa-dev
 
 git clone --recursive https://github.com/horsicq/XELFViewer.git
 
