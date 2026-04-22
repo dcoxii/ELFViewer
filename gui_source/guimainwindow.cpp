@@ -61,7 +61,7 @@ GuiMainWindow::GuiMainWindow(QWidget *pParent) : QMainWindow(pParent), ui(new Ui
     XOnlineToolsOptionsWidget::setDefaultValues(&g_xOptions);
     XInfoDBOptionsWidget::setDefaultValues(&g_xOptions);
 #ifdef USE_YARA
-    g_xOptions.addID(XOptions::ID_SCAN_YARARULESPATH, "$data/yara_rules");
+    g_xOptions.addID(XOptions::ID_SCAN_YARA_DATABASE_PATH, "$data/yara");
 #endif
     g_xOptions.load();
 
@@ -100,8 +100,6 @@ GuiMainWindow::~GuiMainWindow()
     closeCurrentFile();
     g_xOptions.save();
     g_xShortcuts.save();
-
-    DialogXInfoDBTransferProcess::saveDatabase(g_pXInfo);
 
     delete ui;
 #ifdef USE_YARA
