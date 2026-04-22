@@ -1,0 +1,1997 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: sv\n"
+
+msgid "128-bit"
+msgstr "128-bitars"
+
+msgid "16-bit"
+msgstr "16-bitars"
+
+msgid "256-bit"
+msgstr "256-bitars"
+
+msgid "32-bit"
+msgstr "32-bitars"
+
+msgid "64-bit"
+msgstr "64-bitars"
+
+msgid "8-bit"
+msgstr "8-bitars"
+
+msgid "API key"
+msgstr "API-nyckel"
+
+msgid "APK tool"
+msgstr "APK tool"
+
+msgid "About"
+msgstr "Om"
+
+msgid "Action"
+msgstr "Åtgärd"
+
+msgid "Actual Size"
+msgstr "Actual Size"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Add alignment"
+msgstr "Lägg till justering"
+
+msgid "Add to context menu"
+msgstr "Lägg till i snabbmenyn"
+
+msgid "Address"
+msgstr "Adress"
+
+msgid "Adler32"
+msgstr "Adler32"
+
+msgid "Advanced"
+msgstr "Avancerat"
+
+msgid "Aggressive scan"
+msgstr "Aggressiv skanning"
+
+msgid "Algorithm"
+msgstr "Algoritm"
+
+msgid "All"
+msgstr "Alla"
+
+msgid "All file types"
+msgstr "All file types"
+
+msgid "All files"
+msgstr "Alla filer"
+
+msgid "All types"
+msgstr "Alla typer"
+
+msgid "Analyze"
+msgstr "Analysera"
+
+msgid "Analyzed"
+msgstr "Analyserad"
+
+msgid "Anchor Volume Descriptor"
+msgstr "Anchor Volume Descriptor"
+
+msgid "Animate"
+msgstr "Animera"
+
+msgid "Appearance"
+msgstr "Utseende"
+
+msgid "Application"
+msgstr "Applikation"
+
+msgid "Application Extension"
+msgstr "Application Extension"
+
+msgid "Architecture"
+msgstr "Arkitektur"
+
+msgid "Archive"
+msgstr "Arkiv"
+
+msgid "Archive Explorer"
+msgstr "Archive Explorer"
+
+msgid "Archive record"
+msgstr "Arkivpost"
+
+msgid "Archive scan"
+msgstr "Archive scan"
+
+msgid "Archives"
+msgstr "Archives"
+
+msgid "Array"
+msgstr "Array"
+
+msgid "Arrows"
+msgstr "Pilar"
+
+msgid "Attach"
+msgstr "Koppla"
+
+msgid "Attributes"
+msgstr "Attributes"
+
+msgid "Audio"
+msgstr "Ljud"
+
+msgid "Author"
+msgstr "Författare"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Automatic"
+msgstr "Automatisk"
+
+msgid "Background"
+msgstr "Bakgrund"
+
+msgid "Background color"
+msgstr "Background color"
+
+msgid "Base"
+msgstr "Bas"
+
+msgid "Base address"
+msgstr "Basadress"
+
+msgid "Begin"
+msgstr "Börja"
+
+msgid "Binary"
+msgstr "Binär"
+
+msgid "Bind"
+msgstr "Bind"
+
+msgid "Binding"
+msgstr "Bindning"
+
+msgid "Bitmap Data"
+msgstr "Bitmap Data"
+
+msgid "Bits"
+msgstr "Bitar"
+
+msgid "Block size"
+msgstr "Blockstorlek"
+
+msgid "Bookmark"
+msgstr "Bokmärke"
+
+msgid "Bookmarks"
+msgstr "Bokmärken"
+
+msgid "Boot application"
+msgstr "Boot-applikation"
+
+msgid "Boot service driver"
+msgstr "Drivrutin för boot-tjänst"
+
+msgid "Bound import"
+msgstr "Bunden import"
+
+msgid "Box"
+msgstr "Box"
+
+msgid "Boxes"
+msgstr "Boxes"
+
+msgid "Breakpoint"
+msgstr "Brytpunkt"
+
+msgid "Breakpoints"
+msgstr "Brytpunkter"
+
+msgid "Buffer size"
+msgstr "Bufferstorlek"
+
+msgid "Bugreports"
+msgstr "Felrapporter"
+
+msgid "Bundle"
+msgstr "Bunt"
+
+msgid "Byte"
+msgstr "Byte"
+
+msgid "Bytes"
+msgstr "Bytes"
+
+msgid "Bytes available"
+msgstr "Tillgängliga bytes"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "Calculate"
+msgstr "Beräkna"
+
+msgid "Callbacks"
+msgstr "Callbacks"
+
+msgid "Callstack"
+msgstr "Anropsstack"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Cannot build YARA rules"
+msgstr "Cannot build YARA rules"
+
+msgid "Cannot create"
+msgstr "Cannot create"
+
+msgid "Cannot create YARA compiler"
+msgstr "Cannot create YARA compiler"
+
+msgid "Cannot create temporary unpack directory."
+msgstr "Cannot create temporary unpack directory."
+
+msgid "Cannot decompress"
+msgstr "Cannot decompress"
+
+msgid "Cannot fetch release metadata for %1."
+msgstr "Cannot fetch release metadata for %1."
+
+msgid "Cannot find"
+msgstr "Kan inte hitta"
+
+msgid "Cannot find ZIP asset %1 in release %2."
+msgstr "Cannot find ZIP asset %1 in release %2."
+
+msgid "Cannot find file"
+msgstr "Kan inte hitta fil"
+
+msgid "Cannot fix dump file"
+msgstr "Kan inte laga dumpfil"
+
+msgid "Cannot get PDB age"
+msgstr "Kan inte hämta PDB-ålder"
+
+msgid "Cannot get PDB name"
+msgstr "Kan inte hämta PDB-namn"
+
+msgid "Cannot load MSDIA library"
+msgstr "Kan inte ladda MSDIA-bibliotek"
+
+msgid "Cannot load data from PDB"
+msgstr "Kan inte ladda data från PDB"
+
+msgid "Cannot load database"
+msgstr "Kan inte ladda databas"
+
+msgid "Cannot load file"
+msgstr "Kan inte ladda fil"
+
+msgid "Cannot open archive"
+msgstr "Cannot open archive"
+
+msgid "Cannot open dump file"
+msgstr "Kan inte öppna dumpfil"
+
+msgid "Cannot open file"
+msgstr "Kan inte öppna fil"
+
+msgid "Cannot open rules file"
+msgstr "Cannot open rules file"
+
+msgid "Cannot open scan target"
+msgstr "Cannot open scan target"
+
+msgid "Cannot open session"
+msgstr "Kan inte öppna session"
+
+msgid "Cannot read file"
+msgstr "Kan inte läsa fil"
+
+msgid "Cannot read local info.ini for %1, skipping."
+msgstr "Cannot read local info.ini for %1, skipping."
+
+msgid "Cannot read memory at address"
+msgstr "Kan inte läsa minne på adress"
+
+msgid "Cannot resize"
+msgstr "Kan inte ändra storlek"
+
+msgid "Cannot save file"
+msgstr "Kan inte spara fil"
+
+msgid "Cannot set shortcut"
+msgstr "Kan inte ange genväg"
+
+msgid "Cannot unpack"
+msgstr "Cannot unpack"
+
+msgid "Cannot unpack data"
+msgstr "Cannot unpack data"
+
+msgid "Cannot write data to file"
+msgstr "Kan inte skriva data till fil"
+
+msgid "Catalog"
+msgstr "Catalog"
+
+msgid "Certificate"
+msgstr "Certifikat"
+
+msgid "Check"
+msgstr "Kontrollera"
+
+msgid "Check for updates"
+msgstr "Sök efter uppdateringar"
+
+msgid "Chunk"
+msgstr "Chunk"
+
+msgid "Chunks"
+msgstr "Chunks"
+
+msgid "Class info"
+msgstr "Class info"
+
+msgid "Clear"
+msgstr "Rensa"
+
+msgid "Clear result"
+msgstr "Rensa resultat"
+
+msgid "Close"
+msgstr "Stäng"
+
+msgid "Code Object"
+msgstr "Code Object"
+
+msgid "Code pages"
+msgstr "Kodsidor"
+
+msgid "Code section"
+msgstr "Kodsektion"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Color"
+msgstr "Färg"
+
+msgid "Colors"
+msgstr "Färger"
+
+msgid "Commands"
+msgstr "Kommandon"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Comment Extension"
+msgstr "Comment Extension"
+
+msgid "Compact"
+msgstr "Kompakt"
+
+msgid "Compiler"
+msgstr "Kompilator"
+
+msgid "Compress"
+msgstr "Compress"
+
+msgid "Compressed"
+msgstr "Compressed"
+
+msgid "Compressed Data"
+msgstr "Compressed Data"
+
+msgid "Compressed size"
+msgstr "Compressed size"
+
+msgid "Compressor"
+msgstr "Kompressor"
+
+msgid "Conditional"
+msgstr "Villkorlig"
+
+msgid "Console"
+msgstr "Konsol"
+
+msgid "Constant pool"
+msgstr "Constant pool"
+
+msgid "Controls"
+msgstr "Kontroller"
+
+msgid "Converter"
+msgstr "Konverterare"
+
+msgid "Convertor"
+msgstr "Konverterare"
+
+msgid "Copy"
+msgstr "Kopiera"
+
+msgid "Copy as"
+msgstr "Kopiera som"
+
+msgid "Corrupted data"
+msgstr "Skadad data"
+
+msgid "Count"
+msgstr "Antal"
+
+msgid "Creator"
+msgstr "Skapare"
+
+msgid "Crypter"
+msgstr "Krypterare"
+
+msgid "Cryptor"
+msgstr "Krypterare"
+
+msgid "Cursor"
+msgstr "Markör"
+
+msgid "Custom"
+msgstr "Anpassad"
+
+msgid "Custom database"
+msgstr "Anpassad databas"
+
+msgid "DOS extender"
+msgstr "DOS extender"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Data convertor"
+msgstr "Datakonverterare"
+
+msgid "Data in code"
+msgstr "Data i kod"
+
+msgid "Database"
+msgstr "Databas"
+
+msgid "Databases"
+msgstr "Databaser"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Debug"
+msgstr "Debugga"
+
+msgid "Debug data"
+msgstr "Debug-data"
+
+msgid "Debug registers"
+msgstr "Debug-register"
+
+msgid "Debugger"
+msgstr "Debugger"
+
+msgid "Decode"
+msgstr "Avkoda"
+
+msgid "Deep scan"
+msgstr "Djup skanning"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Delay import"
+msgstr "Fördröjd import"
+
+msgid "Demangle"
+msgstr "Avmangla"
+
+msgid "Dependencies"
+msgstr "Beroenden"
+
+msgid "Description"
+msgstr "Beskrivning"
+
+msgid "Detach"
+msgstr "Koppla loss"
+
+msgid "Detect"
+msgstr "Detektera"
+
+msgid "Device scan"
+msgstr "Enhetsskanning"
+
+msgid "Diagram"
+msgstr "Diagram"
+
+msgid "Dialog"
+msgstr "Dialog"
+
+msgid "Directory"
+msgstr "Katalog"
+
+msgid "Directory scan"
+msgstr "Katalogskanning"
+
+msgid "Disasm"
+msgstr "Disasm"
+
+msgid "Document"
+msgstr "Dokument"
+
+msgid "Documents"
+msgstr "Dokument"
+
+msgid "Donate"
+msgstr "Donera"
+
+msgid "Downloaded file is empty"
+msgstr "Downloaded file is empty"
+
+msgid "Downloaded file is not a valid ZIP archive"
+msgstr "Downloaded file is not a valid ZIP archive"
+
+msgid "Driver"
+msgstr "Drivrutin"
+
+msgid "Dump"
+msgstr "Dumpa"
+
+msgid "Dump all"
+msgstr "Dumpa allt"
+
+msgid "Dump to file"
+msgstr "Dumpa till fil"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Edit Flags"
+msgstr "Edit Flags"
+
+msgid "Edit Size"
+msgstr "Edit Size"
+
+msgid "Edit String"
+msgstr "Edit String"
+
+msgid "Edit Value"
+msgstr "Edit Value"
+
+msgid "Editor"
+msgstr "Redigerare"
+
+msgid "Elapsed"
+msgstr "Förfluten tid"
+
+msgid "Encode"
+msgstr "Koda"
+
+msgid "Encrypted"
+msgstr "Encrypted"
+
+msgid "End"
+msgstr "Slut"
+
+msgid "Endianness"
+msgstr "Endianness"
+
+msgid "Entries"
+msgstr "Entries"
+
+msgid "Entropy"
+msgstr "Entropi"
+
+msgid "Entropy view not implemented yet"
+msgstr "Entropy view not implemented yet"
+
+msgid "Entry point"
+msgstr "Startpunkt"
+
+msgid "Entry point section"
+msgstr "Sektion för startpunkt"
+
+msgid "Error"
+msgstr "Fel"
+
+msgid "Exceptions"
+msgstr "Undantag"
+
+msgid "Exit"
+msgstr "Avsluta"
+
+msgid "Export"
+msgstr "Exportera"
+
+msgid "Export File Name"
+msgstr "Exportfilnamn"
+
+msgid "Export type"
+msgstr "Exporttyp"
+
+msgid "Extender"
+msgstr "Extender"
+
+msgid "Extension"
+msgstr "Extension"
+
+msgid "External references"
+msgstr "Externa referenser"
+
+msgid "Extra"
+msgstr "Extra"
+
+msgid "Extra database"
+msgstr "Extra databas"
+
+msgid "Extra database updated successfully"
+msgstr "Extra database updated successfully"
+
+msgid "Extract"
+msgstr "Extrahera"
+
+msgid "Extract all cursors"
+msgstr "Extrahera alla markörer"
+
+msgid "Extract all icons"
+msgstr "Extrahera alla ikoner"
+
+msgid "Extractor"
+msgstr "Extraherare"
+
+msgid "Failed to create temporary directory"
+msgstr "Failed to create temporary directory"
+
+msgid "Failed to extract %1."
+msgstr "Failed to extract %1."
+
+msgid "Failed to extract archive: no files extracted"
+msgstr "Failed to extract archive: no files extracted"
+
+msgid "Failed to get remote database info"
+msgstr "Failed to get remote database info"
+
+msgid "Failed to initialize ZIP unpacking"
+msgstr "Failed to initialize ZIP unpacking"
+
+msgid "Failed to open downloaded zip file"
+msgstr "Failed to open downloaded zip file"
+
+msgid "Failed to save image to %1"
+msgstr "Failed to save image to %1"
+
+msgid "Features"
+msgstr "Features"
+
+msgid "Fields"
+msgstr "Fields"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "File buffer size"
+msgstr "File buffer size"
+
+msgid "File info"
+msgstr "Filinfo"
+
+msgid "File name"
+msgstr "Filnamn"
+
+msgid "File name cannot be empty"
+msgstr "File name cannot be empty"
+
+msgid "File offset"
+msgstr "Fil-offset"
+
+msgid "File saved"
+msgstr "Fil sparad"
+
+msgid "File scan"
+msgstr "Filskanning"
+
+msgid "File size"
+msgstr "Filstorlek"
+
+msgid "File type"
+msgstr "Filtyp"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Find"
+msgstr "Sök"
+
+msgid "First"
+msgstr "Första"
+
+msgid "Fit to Window"
+msgstr "Fit to Window"
+
+msgid "Fix offsets"
+msgstr "Korrigera offsets"
+
+msgid "Fix types"
+msgstr "Korrigera typer"
+
+msgid "Flags"
+msgstr "Flaggor"
+
+msgid "Flags register"
+msgstr "Flagg-register"
+
+msgid "Folder"
+msgstr "Mapp"
+
+msgid "Follow in"
+msgstr "Följ i"
+
+msgid "Follow me"
+msgstr "Följ mig"
+
+msgid "Fonts"
+msgstr "Typsnitt"
+
+msgid "Footer"
+msgstr "Sidfot"
+
+msgid "Form"
+msgstr "Formulär"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Format result"
+msgstr "Formatera resultat"
+
+msgid "Full"
+msgstr "Fullständig"
+
+msgid "Full screen"
+msgstr "Helskärm"
+
+msgid "Function enter"
+msgstr "Funktion start"
+
+msgid "Function leave"
+msgstr "Funktion slut"
+
+msgid "Functions"
+msgstr "Funktioner"
+
+msgid "GB"
+msgstr "GB"
+
+msgid "Game engine"
+msgstr "Game engine"
+
+msgid "General registers"
+msgstr "Allmänna register"
+
+msgid "Generic"
+msgstr "Generisk"
+
+msgid "Get"
+msgstr "Hämta"
+
+msgid "Get element"
+msgstr "Hämta element"
+
+msgid "GiB"
+msgstr "GiB"
+
+msgid "Global Color Table"
+msgstr "Global Color Table"
+
+msgid "Go to"
+msgstr "Gå till"
+
+msgid "Go to address"
+msgstr "Gå till adress"
+
+msgid "Go to download page?"
+msgstr "Gå till nedladdningssidan?"
+
+msgid "Gradient"
+msgstr "Gradient"
+
+msgid "Graphic Control Extension"
+msgstr "Graphic Control Extension"
+
+msgid "Grid"
+msgstr "Rutnät"
+
+msgid "Group"
+msgstr "Grupp"
+
+msgid "Handles"
+msgstr "Handles"
+
+msgid "Hardware"
+msgstr "Hårdvara"
+
+msgid "Hash"
+msgstr "Hash"
+
+msgid "Hash view not implemented yet"
+msgstr "Hash view not implemented yet"
+
+msgid "Header"
+msgstr "Header"
+
+msgid "Height"
+msgstr "Höjd"
+
+msgid "Help"
+msgstr "Hjälp"
+
+msgid "Heuristic"
+msgstr "Heuristisk"
+
+msgid "Heuristic scan"
+msgstr "Heuristisk skanning"
+
+msgid "Heuristics"
+msgstr "Heuristik"
+
+msgid "Hex"
+msgstr "Hex"
+
+msgid "Hex view not implemented yet"
+msgstr "Hex view not implemented yet"
+
+msgid "Hide unknown"
+msgstr "Dölj okända"
+
+msgid "Highlight"
+msgstr "Markera"
+
+msgid "Highlights"
+msgstr "Markeringar"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Image"
+msgstr "Bild"
+
+msgid "Image information"
+msgstr "Image information"
+
+msgid "Images"
+msgstr "Bilder"
+
+msgid "Import"
+msgstr "Importera"
+
+msgid "Import hash"
+msgstr "Import-hash"
+
+msgid "Indirect symbols"
+msgstr "Indirekta symboler"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Info database update URL"
+msgstr "Info database update URL"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Input"
+msgstr "Indata"
+
+msgid "Inspector"
+msgstr "Inspektör"
+
+msgid "Installer"
+msgstr "Installerare"
+
+msgid "Installer data"
+msgstr "Installationsdata"
+
+msgid "Instruction pointer register"
+msgstr "Instruktionspekarregister"
+
+msgid "Interfaces"
+msgstr "Interfaces"
+
+msgid "Interpreter"
+msgstr "Tolk"
+
+msgid "Invalid"
+msgstr "Ogiltig"
+
+msgid "Invalid CRC"
+msgstr "Invalid CRC"
+
+msgid "Invalid YARA compiler"
+msgstr "Invalid YARA compiler"
+
+msgid "Invalid data"
+msgstr "Invalid data"
+
+msgid "Invalid font"
+msgstr "Ogiltigt typsnitt"
+
+msgid "Invalid format data"
+msgstr "Invalid format data"
+
+msgid "Invalid handle"
+msgstr "Ogiltig handle"
+
+msgid "Invalid offset"
+msgstr "Ogiltig offset"
+
+msgid "Invalid opcode"
+msgstr "Ogiltig opkod"
+
+msgid "Invalid parameters provided"
+msgstr "Invalid parameters provided"
+
+msgid "Invalid release body for %1. Expected date=yyyy-MM-dd."
+msgstr "Invalid release body for %1. Expected date=yyyy-MM-dd."
+
+msgid "Invalid signature"
+msgstr "Ogiltig signatur"
+
+msgid "Invalid size"
+msgstr "Ogiltig storlek"
+
+msgid "Issuer"
+msgstr "Utfärdare"
+
+msgid "Joiner"
+msgstr "Joiner"
+
+msgid "Keep size"
+msgstr "Behåll storlek"
+
+msgid "KiB"
+msgstr "KiB"
+
+msgid "Language"
+msgstr "Språk"
+
+msgid "Last"
+msgstr "Sista"
+
+msgid "Last error"
+msgstr "Last error"
+
+msgid "Lazy binding"
+msgstr "Lazy binding"
+
+msgid "Length"
+msgstr "Längd"
+
+msgid "Libraries"
+msgstr "Bibliotek"
+
+msgid "Library"
+msgstr "Bibliotek"
+
+msgid "Library name"
+msgstr "Biblioteksnamn"
+
+msgid "Licensing"
+msgstr "Licensiering"
+
+msgid "Linker"
+msgstr "Länkare"
+
+msgid "Links"
+msgstr "Länkar"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "Load"
+msgstr "Ladda"
+
+msgid "Load config"
+msgstr "Ladda konfig"
+
+msgid "Loader"
+msgstr "Laddare"
+
+msgid "Local relocation"
+msgstr "Lokal relokering"
+
+msgid "Location"
+msgstr "Plats"
+
+msgid "Log"
+msgstr "Logg"
+
+msgid "Logical Screen Descriptor"
+msgstr "Logical Screen Descriptor"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "Main"
+msgstr "Huvud"
+
+msgid "Main database updated successfully"
+msgstr "Main database updated successfully"
+
+msgid "Main module"
+msgstr "Huvudmodul"
+
+msgid "MainWindow"
+msgstr "Huvudfönster"
+
+msgid "Malware"
+msgstr "Skadlig kod"
+
+msgid "Manifest"
+msgstr "Manifest"
+
+msgid "Map"
+msgstr "Karta"
+
+msgid "Maps"
+msgstr "Kartor"
+
+msgid "Mask"
+msgstr "Mask"
+
+msgid "Match case"
+msgstr "Matcha versaler/gemener"
+
+msgid "Matches"
+msgstr "Matchningar"
+
+msgid "Maximum"
+msgstr "Maximum"
+
+msgid "Memory"
+msgstr "Minne"
+
+msgid "Memory map"
+msgstr "Minneskarta"
+
+msgid "Memory scan"
+msgstr "Minnesskanning"
+
+msgid "Metadata"
+msgstr "Metadata"
+
+msgid "Metadata table"
+msgstr "Metadatatabell"
+
+msgid "Method"
+msgstr "Metod"
+
+msgid "Methods"
+msgstr "Metoder"
+
+msgid "MiB"
+msgstr "MiB"
+
+msgid "Min length"
+msgstr "Minsta längd"
+
+msgid "Missing Resources"
+msgstr "Missing Resources"
+
+msgid "Mode"
+msgstr "Läge"
+
+msgid "Mode is not available for this file type"
+msgstr "Mode is not available for this file type"
+
+msgid "Modules"
+msgstr "Moduler"
+
+msgid "More info"
+msgstr "Mer info"
+
+msgid "Multiplatform"
+msgstr "Multiplattform"
+
+msgid "Multisearch"
+msgstr "Multisök"
+
+msgid "Name"
+msgstr "Namn"
+
+msgid "Native"
+msgstr "Native"
+
+msgid "Network error"
+msgstr "Nätverksfel"
+
+msgid "Network error while checking for database updates"
+msgstr "Network error while checking for database updates"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "New version available"
+msgstr "Ny version tillgänglig"
+
+msgid "Next"
+msgstr "Nästa"
+
+msgid "Next visited"
+msgstr "Nästa besökta"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "No YARA rules were loaded"
+msgstr "No YARA rules were loaded"
+
+msgid "No image loaded"
+msgstr "No image loaded"
+
+msgid "No local info.ini for %1. Bootstrapping from GitHub release %2."
+msgstr "No local info.ini for %1. Bootstrapping from GitHub release %2."
+
+msgid "No update available"
+msgstr "Ingen uppdatering tillgänglig"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "Nothing found"
+msgstr "Inget hittades"
+
+msgid "Null-terminated"
+msgstr "Null-terminerad"
+
+msgid "Numbers"
+msgstr "Nummer"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Obfuscator"
+msgstr "Obfuskator"
+
+msgid "Object"
+msgstr "Objekt"
+
+msgid "Objects"
+msgstr "Objekt"
+
+msgid "Offset"
+msgstr "Offset"
+
+msgid "One operand"
+msgstr "En operand"
+
+msgid "Online tools"
+msgstr "Online-verktyg"
+
+msgid "Opcode"
+msgstr "Opkod"
+
+msgid "Opcode group"
+msgstr "Opkodsgrupp"
+
+msgid "Opcodes"
+msgstr "Opkoder"
+
+msgid "Open"
+msgstr "Öppna"
+
+msgid "Open Directory"
+msgstr "Open Directory"
+
+msgid "Open directory"
+msgstr "Öppna katalog"
+
+msgid "Open file"
+msgstr "Öppna fil"
+
+msgid "Operation system"
+msgstr "Operativsystem"
+
+msgid "Options"
+msgstr "Alternativ"
+
+msgid "Output"
+msgstr "Utdata"
+
+msgid "Overlay"
+msgstr "Overlay"
+
+msgid "Overlay scan"
+msgstr "Overlay scan"
+
+msgid "PE tool"
+msgstr "PE tool"
+
+msgid "Package"
+msgstr "Paket"
+
+msgid "Packer"
+msgstr "Packare"
+
+msgid "Part"
+msgstr "Part"
+
+msgid "Patch"
+msgstr "Patch"
+
+msgid "Path traversal detected"
+msgstr "Path traversal detected"
+
+msgid "Path"
+msgstr "Path"
+
+msgid "Pause"
+msgstr "Pausa"
+
+msgid "Paused"
+msgstr "Pausad"
+
+msgid "Payload"
+msgstr "Payload"
+
+msgid "Personal data"
+msgstr "Personlig data"
+
+msgid "Plain Text"
+msgstr "Vanlig text"
+
+msgid "Plain Text Extension"
+msgstr "Plain Text Extension"
+
+msgid "Platform"
+msgstr "Plattform"
+
+msgid "Player"
+msgstr "Spelare"
+
+msgid "Please restart the application"
+msgstr "Vänligen starta om applikationen"
+
+msgid "Please run the program as an administrator"
+msgstr "Vänligen kör programmet som administratör"
+
+msgid "Please use valid API key"
+msgstr "Vänligen använd en giltig API-nyckel"
+
+msgid "Pointer"
+msgstr "Pekare"
+
+msgid "Position"
+msgstr "Position"
+
+msgid "Previous visited"
+msgstr "Föregående besökta"
+
+msgid "Primary Volume Descriptor"
+msgstr "Primary Volume Descriptor"
+
+msgid "Print"
+msgstr "Skriv ut"
+
+msgid "Process"
+msgstr "Process"
+
+msgid "Producer"
+msgstr "Producent"
+
+msgid "Profiling"
+msgstr "Profilering"
+
+msgid "Program name"
+msgstr "Programnamn"
+
+msgid "Programs"
+msgstr "Program"
+
+msgid "Protection"
+msgstr "Skydd"
+
+msgid "Protector"
+msgstr "Skyddare"
+
+msgid "Protector data"
+msgstr "Skyddsdata"
+
+msgid "Prototype"
+msgstr "Prototyp"
+
+msgid "Publisher"
+msgstr "Utgivare"
+
+msgid "RIFF Header"
+msgstr "RIFF Header"
+
+msgid "ROM"
+msgstr "ROM"
+
+msgid "Raw"
+msgstr "Raw"
+
+msgid "Raw data"
+msgstr "Rådata"
+
+msgid "Read buffer size"
+msgstr "Read buffer size"
+
+msgid "Read error"
+msgstr "Läsfel"
+
+msgid "Readonly"
+msgstr "Skrivskyddad"
+
+msgid "Rebase"
+msgstr "Rebase"
+
+msgid "Recent files"
+msgstr "Senaste filer"
+
+msgid "Record"
+msgstr "Record"
+
+msgid "Recursive"
+msgstr "Rekursiv"
+
+msgid "Recursive scan"
+msgstr "Rekursiv skanning"
+
+msgid "References"
+msgstr "Referenser"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "Regions"
+msgstr "Regioner"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "Registers"
+msgstr "Register"
+
+msgid "Regular expression"
+msgstr "Reguljärt uttryck"
+
+msgid "Relative address"
+msgstr "Relativ adress"
+
+msgid "Relative virtual address"
+msgstr "Relativ virtuell adress"
+
+msgid "Reload"
+msgstr "Ladda om"
+
+msgid "Relocs"
+msgstr "Relocs"
+
+msgid "Remaining:"
+msgstr "Remaining:"
+
+msgid "Remove"
+msgstr "Ta bort"
+
+msgid "Rescan"
+msgstr "Skanna igen"
+
+msgid "Reserved"
+msgstr "Reserved"
+
+msgid "Resize"
+msgstr "Ändra storlek"
+
+msgid "Resource"
+msgstr "Resurs"
+
+msgid "Resource scan"
+msgstr "Resource scan"
+
+msgid "Resources"
+msgstr "Resurser"
+
+msgid "Restart"
+msgstr "Starta om"
+
+msgid "Result"
+msgstr "Resultat"
+
+msgid "Rule name"
+msgstr "Regelnamn"
+
+msgid "Rules"
+msgstr "Regler"
+
+msgid "Run"
+msgstr "Kör"
+
+msgid "Run path"
+msgstr "Körningssökväg"
+
+msgid "Running"
+msgstr "Körs"
+
+msgid "Runtime driver"
+msgstr "Runtime-drivrutin"
+
+msgid "SFX"
+msgstr "SFX"
+
+msgid "SFX data"
+msgstr "SFX data"
+
+msgid "SZDD Header"
+msgstr "SZDD Header"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Save Image"
+msgstr "Save Image"
+
+msgid "Save as"
+msgstr "Spara som"
+
+msgid "Save backup"
+msgstr "Spara säkerhetskopia"
+
+msgid "Save diagram"
+msgstr "Spara diagram"
+
+msgid "Save dump"
+msgstr "Spara dump"
+
+msgid "Save file"
+msgstr "Spara fil"
+
+msgid "Save history"
+msgstr "Spara historik"
+
+msgid "Save last directory"
+msgstr "Spara senaste katalogen"
+
+msgid "Save result"
+msgstr "Spara resultat"
+
+msgid "Scan"
+msgstr "Skanna"
+
+msgid "Scan after open"
+msgstr "Skanna efter öppning"
+
+msgid "Scan engine"
+msgstr "Skanningsmotor"
+
+msgid "Schema"
+msgstr "Schema"
+
+msgid "Script"
+msgstr "Skript"
+
+msgid "Scripts"
+msgstr "Skript"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search from"
+msgstr "Sök från"
+
+msgid "Search signature"
+msgstr "Sök signatur"
+
+msgid "Search signatures"
+msgstr "Sök signaturer"
+
+msgid "Search string"
+msgstr "Sök sträng"
+
+msgid "Search strings"
+msgstr "Sök strängar"
+
+msgid "Search value"
+msgstr "Sök värde"
+
+msgid "Search values"
+msgstr "Sök värden"
+
+msgid "Section"
+msgstr "Sektion"
+
+msgid "Section name"
+msgstr "Sektionsnamn"
+
+msgid "Sections"
+msgstr "Sektioner"
+
+msgid "Segment"
+msgstr "Segment"
+
+msgid "Segment %1"
+msgstr "Segment %1"
+
+msgid "Segment registers"
+msgstr "Segmentregister"
+
+msgid "Segments"
+msgstr "Segment"
+
+msgid "Select"
+msgstr "Välj"
+
+msgid "Select Value"
+msgstr "Select Value"
+
+msgid "Selected"
+msgstr "Valda"
+
+msgid "Selection"
+msgstr "Markering"
+
+msgid "Serial number"
+msgstr "Serienummer"
+
+msgid "Set system environment variable"
+msgstr "Set system environment variable"
+
+msgid "Shortcut"
+msgstr "Genväg"
+
+msgid "Shortcuts"
+msgstr "Genvägar"
+
+msgid "Show"
+msgstr "Visa"
+
+msgid "Show Offsets"
+msgstr "Show Offsets"
+
+msgid "Show Presentation"
+msgstr "Show Presentation"
+
+msgid "Show all"
+msgstr "Visa alla"
+
+msgid "Show colons in addresses"
+msgstr "Visa kolon i adresser"
+
+msgid "Show comments"
+msgstr "Visa kommentarer"
+
+msgid "Show detects"
+msgstr "Visa detekteringar"
+
+msgid "Show in"
+msgstr "Visa i"
+
+msgid "Show info"
+msgstr "Visa info"
+
+msgid "Show logo"
+msgstr "Visa logotyp"
+
+msgid "Show type"
+msgstr "Visa typ"
+
+msgid "Show valid"
+msgstr "Visa giltiga"
+
+msgid "Show version"
+msgstr "Visa version"
+
+msgid "Sign tool"
+msgstr "Signeringsverktyg"
+
+msgid "Signature"
+msgstr "Signatur"
+
+msgid "Signature name"
+msgstr "Signaturnamn"
+
+msgid "Signatures"
+msgstr "Signaturer"
+
+msgid "Signed"
+msgstr "Signerad"
+
+msgid "Single application"
+msgstr "Enskild applikation"
+
+msgid "Size"
+msgstr "Storlek"
+
+msgid "Size of image"
+msgstr "Bildstorlek"
+
+msgid "Social Media"
+msgstr "Social Media"
+
+msgid "Sort"
+msgstr "Sortera"
+
+msgid "Sort elements"
+msgstr "Sortera element"
+
+msgid "Sort type"
+msgstr "Sorteringstyp"
+
+msgid "Sorted"
+msgstr "Sorterad"
+
+msgid "Source code"
+msgstr "Källkod"
+
+msgid "Spaces"
+msgstr "Mellanrum"
+
+msgid "Stack"
+msgstr "Stack"
+
+msgid "Stack registers"
+msgstr "Stackregister"
+
+msgid "Start"
+msgstr "Starta"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Stay on top"
+msgstr "Alltid överst"
+
+msgid "Step into"
+msgstr "Stega in i"
+
+msgid "Step over"
+msgstr "Stega över"
+
+msgid "Stop"
+msgstr "Stoppa"
+
+msgid "Stream"
+msgstr "Stream"
+
+msgid "Stream Footer"
+msgstr "Stream Footer"
+
+msgid "Stream Header"
+msgstr "Stream Header"
+
+msgid "Stream offset"
+msgstr "Stream offset"
+
+msgid "Stream size"
+msgstr "Stream size"
+
+msgid "Streams"
+msgstr "Streams"
+
+msgid "String"
+msgstr "Sträng"
+
+msgid "String table"
+msgstr "Strängtabell"
+
+msgid "Strings"
+msgstr "Strängar"
+
+msgid "Strings view not implemented yet"
+msgstr "Strings view not implemented yet"
+
+msgid "Struct"
+msgstr "Strukt"
+
+msgid "Struct and unions"
+msgstr "Strukturer och unioner"
+
+msgid "Structs"
+msgstr "Strukturer"
+
+msgid "Stub"
+msgstr "Stub"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Subdirectories"
+msgstr "Underkataloger"
+
+msgid "Subject"
+msgstr "Ämne"
+
+msgid "Symbol"
+msgstr "Symbol"
+
+msgid "Symbol table"
+msgstr "Symboltabell"
+
+msgid "Symbols"
+msgstr "Symboler"
+
+msgid "Sync"
+msgstr "Synka"
+
+msgid "Syntax"
+msgstr "Syntax"
+
+msgid "TABLE"
+msgstr "TABLE"
+
+msgid "TB"
+msgstr "TB"
+
+msgid "Table"
+msgstr "Tabell"
+
+msgid "Table Directory"
+msgstr "Table Directory"
+
+msgid "Table of contents"
+msgstr "Innehållsförteckning"
+
+msgid "Table views"
+msgstr "Tabellvyer"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Tags"
+msgstr "Taggar"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Text color"
+msgstr "Text color"
+
+msgid "Text content"
+msgstr "Text content"
+
+msgid "Text documents"
+msgstr "Textdokument"
+
+msgid "Text editors"
+msgstr "Textredigerare"
+
+msgid "Text files"
+msgstr "Textfiler"
+
+msgid "Thanks"
+msgstr "Tack"
+
+msgid "The file is not signed"
+msgstr "Filen är inte signerad"
+
+msgid "The file is signed and the signature was verified"
+msgstr "Filen är signerad och signaturen har verifierats"
+
+msgid "The signature error"
+msgstr "Signaturfel"
+
+msgid "The signature is present, but not trusted"
+msgstr "Signaturen finns, men är inte betrodd"
+
+msgid "The signature is present, but specifically disallowed"
+msgstr "Signaturen finns, men är specifikt spärrad"
+
+msgid "The value copied to clipboard"
+msgstr "Värdet kopierat till urklipp"
+
+msgid "Threads"
+msgstr "Trådar"
+
+msgid "TiB"
+msgstr "TiB"
+
+msgid "Time"
+msgstr "Tid"
+
+msgid "Time date stamp"
+msgstr "Tidsstämpel"
+
+msgid "Toggle"
+msgstr "Växla"
+
+msgid "Tool"
+msgstr "Verktyg"
+
+msgid "Tools"
+msgstr "Verktyg"
+
+msgid "Total"
+msgstr "Totalt"
+
+msgid "Trace"
+msgstr "Trace"
+
+msgid "Trace into"
+msgstr "Trace in i"
+
+msgid "Trace over"
+msgstr "Trace över"
+
+msgid "Trailer"
+msgstr "Trailer"
+
+msgid "Tree"
+msgstr "Träd"
+
+msgid "Tree views"
+msgstr "Trädvyer"
+
+msgid "Trojan"
+msgstr "Trojan"
+
+msgid "Two operands"
+msgstr "Två operander"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "U.Size"
+msgstr "U.Size"
+
+msgid "UNKNOWN"
+msgstr "UNKNOWN"
+
+msgid "Unexpected end of data"
+msgstr "Unexpected end of data"
+
+msgid "Unicode"
+msgstr "Unicode"
+
+msgid "Universal"
+msgstr "Universell"
+
+msgid "Unknown"
+msgstr "Okänd"
+
+msgid "Unknown compression method"
+msgstr "Unknown compression method"
+
+msgid "Unpack"
+msgstr "Packa upp"
+
+msgid "Unsigned"
+msgstr "Osignerad"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Update information"
+msgstr "Uppdateringsinformation"
+
+msgid "Upload the file for analyze?"
+msgstr "Ladda upp filen för analys?"
+
+msgid "Upper"
+msgstr "Övre"
+
+msgid "Uppercase"
+msgstr "Versaler"
+
+msgid "Use cache"
+msgstr "Use cache"
+
+msgid "V.Size"
+msgstr "V.Size"
+
+msgid "Value"
+msgstr "Värde"
+
+msgid "Values"
+msgstr "Värden"
+
+msgid "Variable"
+msgstr "Variabel"
+
+msgid "Verbose"
+msgstr "Utförlig"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "View"
+msgstr "Visa"
+
+msgid "Viewer"
+msgstr "Visare"
+
+msgid "Virtual address"
+msgstr "Virtuell adress"
+
+msgid "Virtual machine"
+msgstr "Virtuell maskin"
+
+msgid "Virtual size"
+msgstr "Virtuell storlek"
+
+msgid "Virus"
+msgstr "Virus"
+
+msgid "Visualization"
+msgstr "Visualisering"
+
+msgid "Warning"
+msgstr "Varning"
+
+msgid "Weak binding"
+msgstr "Svag bindning"
+
+msgid "Website"
+msgstr "Webbplats"
+
+msgid "Width"
+msgstr "Bredd"
+
+msgid "Wildcard"
+msgstr "Wildcard"
+
+msgid "Would you like to download them now?"
+msgstr "Would you like to download them now?"
+
+msgid "Write error"
+msgstr "Skrivfel"
+
+msgid "YARA rules path not found"
+msgstr "YARA rules path not found"
+
+msgid "YARA scan failed"
+msgstr "YARA scan failed"
+
+msgid "Zeros"
+msgstr "Nollor"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "Zoom In"
+msgstr "Zoom In"
+
+msgid "Zoom Out"
+msgstr "Zoom Out"
+
+msgid "data"
+msgstr "data"
+
+msgid "extender"
+msgstr "extender"
+
+msgid "false"
+msgstr "falskt"
+
+msgid "kB"
+msgstr "kB"
+
+msgid "msec"
+msgstr "ms"
+
+msgid "not packed"
+msgstr "inte packad"
+
+msgid "packed"
+msgstr "packad"
+
+msgid "true"
+msgstr "sant"
+

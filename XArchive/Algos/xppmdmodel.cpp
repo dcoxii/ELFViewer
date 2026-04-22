@@ -1,0 +1,151 @@
+﻿/* Copyright (c) 2025-2026 hors<horsicq@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+#include "xppmdmodel.h"
+
+#include <cstdlib>
+#include <cstring>
+
+static void *XPPMdAlloc(ISzAllocPtr, size_t nSize)
+{
+    return malloc(nSize);
+}
+
+static void XPPMdFree(ISzAllocPtr, void *pAddress)
+{
+    free(pAddress);
+}
+
+static ISzAlloc g_XPPMdAlloc = {XPPMdAlloc, XPPMdFree};
+
+// Input stream adapter to connect 7-Zip's IByteIn with QIODevice
+typedef struct {
+    IByteIn vt;
+    QIODevice *pDevice;
+    bool bError;
+} XPPMdInputStream;
+
+static Byte XPPMdInputStream_Read(const IByteIn *p)
+{
+    XPPMdInputStream *pStream = Z7_CONTAINER_FROM_VTBL(p, XPPMdInputStream, vt);
+
+    if (pStream->bError || !pStream->pDevice) {
+        pStream->bError = true;
+        return 0;
+    }
+
+    char cByte = 0;
+    qint64 nRead = pStream->pDevice->read(&cByte, 1);
+
+    if (nRead != 1) {
+        pStream->bError = true;
+        return 0;
+    }
+
+    return (Byte)cByte;
+}
+
+// Private implementation using 7-Zip PPMd model
+struct XPPMdModelPrivate {
+    CPpmd8 sPpmd;
+    XPPMdInputStream sInputStream;
+    bool bAllocated;
+
+    XPPMdModelPrivate() : bAllocated(false)
+    {
+        memset(&sPpmd, 0, sizeof(sPpmd));
+        memset(&sInputStream, 0, sizeof(sInputStream));
+    }
+};
+
+// ============================================================================
+// XPPMdModel public methods
+// ============================================================================
+
+XPPMdModel::XPPMdModel()
+{
+    m_pPrivate = new XPPMdModelPrivate();
+    Ppmd8_Construct(&m_pPrivate->sPpmd);
+}
+
+XPPMdModel::~XPPMdModel()
+{
+    free();
+    delete m_pPrivate;
+}
+
+bool XPPMdModel::allocate(quint32 nMemorySize)
+{
+    if (m_pPrivate->bAllocated) {
+        free();
+    }
+
+    m_pPrivate->bAllocated = (Ppmd8_Alloc(&m_pPrivate->sPpmd, nMemorySize, &g_XPPMdAlloc) != 0);
+    return m_pPrivate->bAllocated;
+}
+
+void XPPMdModel::init(quint8 nOrder, quint8 nRestoreMethod)
+{
+    // Initialize the PPMd model with the specified parameters
+    Ppmd8_Init(&m_pPrivate->sPpmd, nOrder, nRestoreMethod);
+}
+
+void XPPMdModel::setInputStream(QIODevice *pDevice)
+{
+    // Set up input stream for 7-Zip's internal range decoder
+    m_pPrivate->sInputStream.vt.Read = XPPMdInputStream_Read;
+    m_pPrivate->sInputStream.pDevice = pDevice;
+    m_pPrivate->sInputStream.bError = false;
+
+    // Connect the stream to the PPMd decoder
+    m_pPrivate->sPpmd.Stream.In = &m_pPrivate->sInputStream.vt;
+
+    // Initialize 7-Zip's internal range decoder
+    if (!Ppmd8_Init_RangeDec(&m_pPrivate->sPpmd)) {
+        // Range decoder initialization failed
+        m_pPrivate->sInputStream.bError = true;
+    }
+}
+
+qint32 XPPMdModel::decodeSymbol()
+{
+    if (!m_pPrivate->bAllocated) {
+        return -2;  // Error: model not allocated
+    }
+
+    // Use 7-Zip's proven decoder
+    int nSymbol = Ppmd8_DecodeSymbol(&m_pPrivate->sPpmd);
+
+    return nSymbol;
+}
+
+void XPPMdModel::free()
+{
+    if (m_pPrivate->bAllocated) {
+        Ppmd8_Free(&m_pPrivate->sPpmd, &g_XPPMdAlloc);
+        m_pPrivate->bAllocated = false;
+    }
+}
+
+bool XPPMdModel::wasAllocated() const
+{
+    return m_pPrivate->bAllocated;
+}

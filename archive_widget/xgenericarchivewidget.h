@@ -1,0 +1,71 @@
+/* Copyright (c) 2020-2026 hors<horsicq@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+#ifndef XGENERICARCHIVEWIDGET_H
+#define XGENERICARCHIVEWIDGET_H
+
+#include <QWidget>
+#include <QStandardItemModel>
+#include <QSortFilterProxyModel>
+#include <QMenu>
+#include "xarchive.h"
+#include "xshortcutswidget.h"
+
+namespace Ui {
+class XGenericArchiveWidget;
+}
+
+class XGenericArchiveWidget : public XShortcutsWidget {
+    Q_OBJECT
+
+public:
+    explicit XGenericArchiveWidget(QWidget *pParent = nullptr);
+    ~XGenericArchiveWidget();
+
+    void setData(XBinary::FT fileType, QIODevice *pDevice, bool bIsImage = false, XADDR nModuleAddress = -1);
+    QString getCurrentRecordFileName();
+    virtual void adjustView();
+    virtual void reloadData(bool bSaveSelection);
+
+private slots:
+    void on_tableViewRecords_customContextMenuRequested(const QPoint &pos);
+    void on_lineEditFilter_textChanged(const QString &sString);
+    void on_tableViewRecords_doubleClicked(const QModelIndex &index);
+    void onTableElement_selected(const QItemSelection &itemSelected, const QItemSelection &itemDeselected);
+
+protected:
+    virtual void registerShortcuts(bool bState);
+
+private:
+    void loadRecords();
+    void setupTableView();
+
+private:
+    Ui::XGenericArchiveWidget *ui;
+    QIODevice *m_pDevice;
+    XBinary::FT m_fileType;
+    QList<XArchive::RECORD> m_listRecords;
+    QStandardItemModel *m_pModel;
+    QSortFilterProxyModel *m_pFilterModel;
+    QString m_sCurrentRecordFileName;
+    qint64 m_nCurrentFileSize;
+};
+
+#endif  // XGENERICARCHIVEWIDGET_H

@@ -1,0 +1,1998 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Language: fa_IR\n"
+"X-Source-Language: C\n"
+
+msgid "128-bit"
+msgstr "128-بیت"
+
+msgid "16-bit"
+msgstr "16-بیت"
+
+msgid "256-bit"
+msgstr "256-بیت"
+
+msgid "32-bit"
+msgstr "32-بیت"
+
+msgid "64-bit"
+msgstr "64-بیت"
+
+msgid "8-bit"
+msgstr "8-بیت"
+
+msgid "API key"
+msgstr "api کلید"
+
+msgid "APK tool"
+msgstr "APK tool"
+
+msgid "About"
+msgstr "درباره"
+
+msgid "Action"
+msgstr "عمل"
+
+msgid "Actual Size"
+msgstr "Actual Size"
+
+msgid "Add"
+msgstr "اضافه کردن"
+
+msgid "Add alignment"
+msgstr "اضافه کردن تراز"
+
+msgid "Add to context menu"
+msgstr "اضافه کردن به منوی راست کلیک"
+
+msgid "Address"
+msgstr "ادرس حافظه"
+
+msgid "Adler32"
+msgstr "Adler32"
+
+msgid "Advanced"
+msgstr "پیشرفته"
+
+msgid "Aggressive scan"
+msgstr "اسکن تهاجمی"
+
+msgid "Algorithm"
+msgstr "الگوریتم"
+
+msgid "All"
+msgstr "همه"
+
+msgid "All file types"
+msgstr "All file types"
+
+msgid "All files"
+msgstr "همه فایل ها"
+
+msgid "All types"
+msgstr "همه فرمت ها"
+
+msgid "Analyze"
+msgstr "انالیز"
+
+msgid "Analyzed"
+msgstr "آنالیز شده"
+
+msgid "Anchor Volume Descriptor"
+msgstr "Anchor Volume Descriptor"
+
+msgid "Animate"
+msgstr "متحرک‌سازی"
+
+msgid "Appearance"
+msgstr "ظاهر"
+
+msgid "Application"
+msgstr "اپلیکیشن"
+
+msgid "Application Extension"
+msgstr "Application Extension"
+
+msgid "Architecture"
+msgstr "معماری"
+
+msgid "Archive"
+msgstr "ارشیو"
+
+msgid "Archive Explorer"
+msgstr "Archive Explorer"
+
+msgid "Archive record"
+msgstr "ارشیو رکورد"
+
+msgid "Archive scan"
+msgstr "Archive scan"
+
+msgid "Archives"
+msgstr "Archives"
+
+msgid "Array"
+msgstr "ارایه"
+
+msgid "Arrows"
+msgstr "فلش‌ها"
+
+msgid "Attach"
+msgstr "ضمیمه کردن"
+
+msgid "Attributes"
+msgstr "Attributes"
+
+msgid "Audio"
+msgstr "صدا"
+
+msgid "Author"
+msgstr "نویسنده"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Automatic"
+msgstr "خودکار"
+
+msgid "Background"
+msgstr "پس‌زمینه"
+
+msgid "Background color"
+msgstr "Background color"
+
+msgid "Base"
+msgstr "پایه"
+
+msgid "Base address"
+msgstr "آدرس پایه"
+
+msgid "Begin"
+msgstr "شروع"
+
+msgid "Binary"
+msgstr "باینری"
+
+msgid "Bind"
+msgstr "سرهم سازی"
+
+msgid "Binding"
+msgstr "در حال سر هم سازی"
+
+msgid "Bitmap Data"
+msgstr "Bitmap Data"
+
+msgid "Bits"
+msgstr "بیت‌ها"
+
+msgid "Block size"
+msgstr "اندازه بلوک"
+
+msgid "Bookmark"
+msgstr "بوک مارک"
+
+msgid "Bookmarks"
+msgstr "بوک مارک ها"
+
+msgid "Boot application"
+msgstr "اپلیکیشن بوت"
+
+msgid "Boot service driver"
+msgstr "درایور سرویس بوت"
+
+msgid "Bound import"
+msgstr "ایمپورت محدود شده"
+
+msgid "Box"
+msgstr "Box"
+
+msgid "Boxes"
+msgstr "Boxes"
+
+msgid "Breakpoint"
+msgstr "بریک پوینت"
+
+msgid "Breakpoints"
+msgstr "بریک پوینت ها"
+
+msgid "Buffer size"
+msgstr "اندازه بافر"
+
+msgid "Bugreports"
+msgstr "گزارش باگ"
+
+msgid "Bundle"
+msgstr "بسته"
+
+msgid "Byte"
+msgstr "بایت"
+
+msgid "Bytes"
+msgstr "بایت ها"
+
+msgid "Bytes available"
+msgstr "بایت‌های در دسترس"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "Calculate"
+msgstr "محاسبه"
+
+msgid "Callbacks"
+msgstr "کال‌بک‌ها"
+
+msgid "Callstack"
+msgstr "پشته فراخوانی"
+
+msgid "Cancel"
+msgstr "لغو"
+
+msgid "Cannot build YARA rules"
+msgstr "Cannot build YARA rules"
+
+msgid "Cannot create"
+msgstr "Cannot create"
+
+msgid "Cannot create YARA compiler"
+msgstr "Cannot create YARA compiler"
+
+msgid "Cannot create temporary unpack directory."
+msgstr "Cannot create temporary unpack directory."
+
+msgid "Cannot decompress"
+msgstr "Cannot decompress"
+
+msgid "Cannot fetch release metadata for %1."
+msgstr "Cannot fetch release metadata for %1."
+
+msgid "Cannot find"
+msgstr "یافت نشد"
+
+msgid "Cannot find ZIP asset %1 in release %2."
+msgstr "Cannot find ZIP asset %1 in release %2."
+
+msgid "Cannot find file"
+msgstr "فایل پیدا نشد"
+
+msgid "Cannot fix dump file"
+msgstr "نمی‌توان فایل دامپ را اصلاح کرد"
+
+msgid "Cannot get PDB age"
+msgstr "نمی‌توان عمر PDB را دریافت کرد"
+
+msgid "Cannot get PDB name"
+msgstr "نمی‌توان نام PDB را دریافت کرد"
+
+msgid "Cannot load MSDIA library"
+msgstr "نمیتوان msdia را لود کرد"
+
+msgid "Cannot load data from PDB"
+msgstr "دیتا از pdb لود نمیشود"
+
+msgid "Cannot load database"
+msgstr "نمیتوان دیتابیس را لود کرد"
+
+msgid "Cannot load file"
+msgstr "نمیتوان فایل را لود کرد"
+
+msgid "Cannot open archive"
+msgstr "Cannot open archive"
+
+msgid "Cannot open dump file"
+msgstr "نمی‌توان فایل دامپ را باز کرد"
+
+msgid "Cannot open file"
+msgstr "نمیتوان فایل را باز کرد"
+
+msgid "Cannot open rules file"
+msgstr "Cannot open rules file"
+
+msgid "Cannot open scan target"
+msgstr "Cannot open scan target"
+
+msgid "Cannot open session"
+msgstr "نمیتوان جلسه را باز کرد"
+
+msgid "Cannot read file"
+msgstr "نمی‌توان فایل را خواند"
+
+msgid "Cannot read local info.ini for %1, skipping."
+msgstr "Cannot read local info.ini for %1, skipping."
+
+msgid "Cannot read memory at address"
+msgstr "نمیتوان حافظه را در این ادرس خواند"
+
+msgid "Cannot resize"
+msgstr "امکان تغییر سایز وجود ندارد"
+
+msgid "Cannot save file"
+msgstr "نمیتوان فایل را ذخیره کرد"
+
+msgid "Cannot set shortcut"
+msgstr "نمیتوان شورت کات اعمال کرد"
+
+msgid "Cannot unpack"
+msgstr "Cannot unpack"
+
+msgid "Cannot unpack data"
+msgstr "Cannot unpack data"
+
+msgid "Cannot write data to file"
+msgstr "نمی‌توان داده‌ها را در فایل نوشت"
+
+msgid "Catalog"
+msgstr "Catalog"
+
+msgid "Certificate"
+msgstr "مدرک"
+
+msgid "Check"
+msgstr "چک کردن"
+
+msgid "Check for updates"
+msgstr "چک کردن به روز رسانی"
+
+msgid "Chunk"
+msgstr "Chunk"
+
+msgid "Chunks"
+msgstr "Chunks"
+
+msgid "Class info"
+msgstr "Class info"
+
+msgid "Clear"
+msgstr "پاک کردن"
+
+msgid "Clear result"
+msgstr "پاک کردن نتیجه"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Code Object"
+msgstr "Code Object"
+
+msgid "Code pages"
+msgstr "صفحات کد"
+
+msgid "Code section"
+msgstr "بخش کد"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Color"
+msgstr "رنگ"
+
+msgid "Colors"
+msgstr "رنگ ها"
+
+msgid "Commands"
+msgstr "کامند ها"
+
+msgid "Comment"
+msgstr "کامنت"
+
+msgid "Comment Extension"
+msgstr "Comment Extension"
+
+msgid "Compact"
+msgstr "فشرده"
+
+msgid "Compiler"
+msgstr "کامپایلر"
+
+msgid "Compress"
+msgstr "Compress"
+
+msgid "Compressed"
+msgstr "Compressed"
+
+msgid "Compressed Data"
+msgstr "Compressed Data"
+
+msgid "Compressed size"
+msgstr "Compressed size"
+
+msgid "Compressor"
+msgstr "فشرده‌ساز"
+
+msgid "Conditional"
+msgstr "شرطی"
+
+msgid "Console"
+msgstr "کنسول"
+
+msgid "Constant pool"
+msgstr "Constant pool"
+
+msgid "Controls"
+msgstr "کنترل‌ها"
+
+msgid "Converter"
+msgstr "مبدل"
+
+msgid "Convertor"
+msgstr "تبدیل‌کننده"
+
+msgid "Copy"
+msgstr "کپی"
+
+msgid "Copy as"
+msgstr "کپی به عنوان"
+
+msgid "Corrupted data"
+msgstr "داده‌های فاسد"
+
+msgid "Count"
+msgstr "شمارش"
+
+msgid "Creator"
+msgstr "سازنده"
+
+msgid "Crypter"
+msgstr "رمزکننده"
+
+msgid "Cryptor"
+msgstr "رمزنگار"
+
+msgid "Cursor"
+msgstr "نشانگر"
+
+msgid "Custom"
+msgstr "سفارشی"
+
+msgid "Custom database"
+msgstr "دیتابیس سفارشی"
+
+msgid "DOS extender"
+msgstr "DOS extender"
+
+msgid "Data"
+msgstr "دیتا"
+
+msgid "Data convertor"
+msgstr "تبدیل‌کننده داده"
+
+msgid "Data in code"
+msgstr "دیتا در کد"
+
+msgid "Database"
+msgstr "دیتابیس"
+
+msgid "Databases"
+msgstr "دیتابیس‌ها"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "Debug"
+msgstr "دیباگ"
+
+msgid "Debug data"
+msgstr "دیباگ داده"
+
+msgid "Debug registers"
+msgstr "رجیسترهای دیباگ"
+
+msgid "Debugger"
+msgstr "دیباگر"
+
+msgid "Decode"
+msgstr "رمزگشایی"
+
+msgid "Deep scan"
+msgstr "اسکن عمیق"
+
+msgid "Default"
+msgstr "پیشفرض"
+
+msgid "Delay import"
+msgstr "ایمپورت با تأخیر"
+
+msgid "Demangle"
+msgstr "دی‌منگل"
+
+msgid "Dependencies"
+msgstr "وابستگی‌ها"
+
+msgid "Description"
+msgstr "توضیحات"
+
+msgid "Detach"
+msgstr "جداسازی"
+
+msgid "Detect"
+msgstr "تشخیص"
+
+msgid "Device scan"
+msgstr "اسکن تجهیز"
+
+msgid "Diagram"
+msgstr "نمودار"
+
+msgid "Dialog"
+msgstr "دیالوگ"
+
+msgid "Directory"
+msgstr "دایرکتوری"
+
+msgid "Directory scan"
+msgstr "اسکن دایرکتوری"
+
+msgid "Disasm"
+msgstr "دیس‌اسمبل"
+
+msgid "Document"
+msgstr "سند"
+
+msgid "Documents"
+msgstr "اسناد"
+
+msgid "Donate"
+msgstr "حمایت کردن"
+
+msgid "Downloaded file is empty"
+msgstr "Downloaded file is empty"
+
+msgid "Downloaded file is not a valid ZIP archive"
+msgstr "Downloaded file is not a valid ZIP archive"
+
+msgid "Driver"
+msgstr "درایور"
+
+msgid "Dump"
+msgstr "دامپ"
+
+msgid "Dump all"
+msgstr "دامپ همه"
+
+msgid "Dump to file"
+msgstr "دامپ در فایل"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Edit Flags"
+msgstr "Edit Flags"
+
+msgid "Edit Size"
+msgstr "Edit Size"
+
+msgid "Edit String"
+msgstr "Edit String"
+
+msgid "Edit Value"
+msgstr "Edit Value"
+
+msgid "Editor"
+msgstr "ادیتور"
+
+msgid "Elapsed"
+msgstr "سپری شده"
+
+msgid "Encode"
+msgstr "کدگذاری"
+
+msgid "Encrypted"
+msgstr "Encrypted"
+
+msgid "End"
+msgstr "پایان"
+
+msgid "Endianness"
+msgstr "اندیان‌نس"
+
+msgid "Entries"
+msgstr "Entries"
+
+msgid "Entropy"
+msgstr "انتروپی"
+
+msgid "Entropy view not implemented yet"
+msgstr "Entropy view not implemented yet"
+
+msgid "Entry point"
+msgstr "نقطه شروع"
+
+msgid "Entry point section"
+msgstr "بخش نقطه شروع"
+
+msgid "Error"
+msgstr "خطا"
+
+msgid "Exceptions"
+msgstr "استثناها"
+
+msgid "Exit"
+msgstr "خروج"
+
+msgid "Export"
+msgstr "اکسپورت"
+
+msgid "Export File Name"
+msgstr "نام فایل اکسپورت"
+
+msgid "Export type"
+msgstr "نوع اکسپورت"
+
+msgid "Extender"
+msgstr "افزونه"
+
+msgid "Extension"
+msgstr "Extension"
+
+msgid "External references"
+msgstr "ارجاعات خارجی"
+
+msgid "Extra"
+msgstr "اضافی"
+
+msgid "Extra database"
+msgstr "دیتابیس اضافی"
+
+msgid "Extra database updated successfully"
+msgstr "Extra database updated successfully"
+
+msgid "Extract"
+msgstr "استخراج"
+
+msgid "Extract all cursors"
+msgstr "استخراج تمام نشانگرها"
+
+msgid "Extract all icons"
+msgstr "استخراج تمامی ایکون ها"
+
+msgid "Extractor"
+msgstr "استخراج کننده"
+
+msgid "Failed to create temporary directory"
+msgstr "Failed to create temporary directory"
+
+msgid "Failed to extract %1."
+msgstr "Failed to extract %1."
+
+msgid "Failed to extract archive: no files extracted"
+msgstr "Failed to extract archive: no files extracted"
+
+msgid "Failed to get remote database info"
+msgstr "Failed to get remote database info"
+
+msgid "Failed to initialize ZIP unpacking"
+msgstr "Failed to initialize ZIP unpacking"
+
+msgid "Failed to open downloaded zip file"
+msgstr "Failed to open downloaded zip file"
+
+msgid "Failed to save image to %1"
+msgstr "Failed to save image to %1"
+
+msgid "Features"
+msgstr "Features"
+
+msgid "Fields"
+msgstr "Fields"
+
+msgid "File"
+msgstr "فایل"
+
+msgid "File buffer size"
+msgstr "File buffer size"
+
+msgid "File info"
+msgstr "اطلاعات فایل"
+
+msgid "File name"
+msgstr "اسم فایل"
+
+msgid "File name cannot be empty"
+msgstr "File name cannot be empty"
+
+msgid "File offset"
+msgstr "آفست فایل"
+
+msgid "File saved"
+msgstr "فایل ذخیره شد"
+
+msgid "File scan"
+msgstr "اسکن‌ فایل"
+
+msgid "File size"
+msgstr "حجم فایل"
+
+msgid "File type"
+msgstr "نوع فایل"
+
+msgid "Files"
+msgstr "فایل ها"
+
+msgid "Filter"
+msgstr "فیلتر"
+
+msgid "Find"
+msgstr "پیدا کردن"
+
+msgid "First"
+msgstr "اولین"
+
+msgid "Fit to Window"
+msgstr "Fit to Window"
+
+msgid "Fix offsets"
+msgstr "تصحیح آفست‌ها"
+
+msgid "Fix types"
+msgstr "اصلاح انواع"
+
+msgid "Flags"
+msgstr "پرچم ها"
+
+msgid "Flags register"
+msgstr "رجیستر پرچم‌ها"
+
+msgid "Folder"
+msgstr "پوشه"
+
+msgid "Follow in"
+msgstr "دنبال کردن در"
+
+msgid "Follow me"
+msgstr "مرا دنبال کن"
+
+msgid "Fonts"
+msgstr "فونت‌ها"
+
+msgid "Footer"
+msgstr "پا ضفحه"
+
+msgid "Form"
+msgstr "فرم"
+
+msgid "Format"
+msgstr "فرمت"
+
+msgid "Format result"
+msgstr "فرمت نتیجه"
+
+msgid "Full"
+msgstr "کامل"
+
+msgid "Full screen"
+msgstr "تمام صفحه"
+
+msgid "Function enter"
+msgstr "ورود به تابع"
+
+msgid "Function leave"
+msgstr "خروج از تابع"
+
+msgid "Functions"
+msgstr "فانکشن‌ها"
+
+msgid "GB"
+msgstr "گیگابایت"
+
+msgid "Game engine"
+msgstr "Game engine"
+
+msgid "General registers"
+msgstr "رجیسترهای عمومی"
+
+msgid "Generic"
+msgstr "عمومی"
+
+msgid "Get"
+msgstr "گرفتن"
+
+msgid "Get element"
+msgstr "برو به عنصر"
+
+msgid "GiB"
+msgstr "گیبی‌بایت"
+
+msgid "Global Color Table"
+msgstr "Global Color Table"
+
+msgid "Go to"
+msgstr "رفتن به"
+
+msgid "Go to address"
+msgstr "رفتن به ادرس"
+
+msgid "Go to download page?"
+msgstr "رفتن به صفحه دانلود؟"
+
+msgid "Gradient"
+msgstr "گرادیان"
+
+msgid "Graphic Control Extension"
+msgstr "Graphic Control Extension"
+
+msgid "Grid"
+msgstr "شبکه"
+
+msgid "Group"
+msgstr "گروه"
+
+msgid "Handles"
+msgstr "هندل‌ها"
+
+msgid "Hardware"
+msgstr "سخت‌افزار"
+
+msgid "Hash"
+msgstr "هش"
+
+msgid "Hash view not implemented yet"
+msgstr "Hash view not implemented yet"
+
+msgid "Header"
+msgstr "هدر"
+
+msgid "Height"
+msgstr "ارتفاع"
+
+msgid "Help"
+msgstr "کمک"
+
+msgid "Heuristic"
+msgstr "اکتشافی"
+
+msgid "Heuristic scan"
+msgstr "اسکن اکتشافی"
+
+msgid "Heuristics"
+msgstr "روش‌های اکتشافی"
+
+msgid "Hex"
+msgstr "هگز"
+
+msgid "Hex view not implemented yet"
+msgstr "Hex view not implemented yet"
+
+msgid "Hide unknown"
+msgstr "مخفی کردن ناشناخته‌ها"
+
+msgid "Highlight"
+msgstr "های لایت"
+
+msgid "Highlights"
+msgstr "های‌لایت‌ها"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Image"
+msgstr "عکس"
+
+msgid "Image information"
+msgstr "Image information"
+
+msgid "Images"
+msgstr "عکس ها"
+
+msgid "Import"
+msgstr "وارد كردن"
+
+msgid "Import hash"
+msgstr "وارد کردن هش"
+
+msgid "Indirect symbols"
+msgstr "سمبل‌های غیرمستقیم"
+
+msgid "Info"
+msgstr "اطلاعات"
+
+msgid "Info database update URL"
+msgstr "Info database update URL"
+
+msgid "Information"
+msgstr "اطلاعات"
+
+msgid "Input"
+msgstr "ورودی"
+
+msgid "Inspector"
+msgstr "بازرس"
+
+msgid "Installer"
+msgstr "نصب کننده"
+
+msgid "Installer data"
+msgstr "نصب کنندخ اطلاعات"
+
+msgid "Instruction pointer register"
+msgstr "رجیستر اشاره‌گر دستورالعمل"
+
+msgid "Interfaces"
+msgstr "Interfaces"
+
+msgid "Interpreter"
+msgstr "مفسر"
+
+msgid "Invalid"
+msgstr "نامعتبر"
+
+msgid "Invalid CRC"
+msgstr "Invalid CRC"
+
+msgid "Invalid YARA compiler"
+msgstr "Invalid YARA compiler"
+
+msgid "Invalid data"
+msgstr "Invalid data"
+
+msgid "Invalid font"
+msgstr "فونت نامعتبر"
+
+msgid "Invalid format data"
+msgstr "Invalid format data"
+
+msgid "Invalid handle"
+msgstr "هندل نامعتبر"
+
+msgid "Invalid offset"
+msgstr "آفست نامعتبر"
+
+msgid "Invalid opcode"
+msgstr "اپکد نامعتبر"
+
+msgid "Invalid parameters provided"
+msgstr "Invalid parameters provided"
+
+msgid "Invalid release body for %1. Expected date=yyyy-MM-dd."
+msgstr "Invalid release body for %1. Expected date=yyyy-MM-dd."
+
+msgid "Invalid signature"
+msgstr "خطای امضا کننده"
+
+msgid "Invalid size"
+msgstr "اندازه نامعتبر"
+
+msgid "Issuer"
+msgstr "صادرکننده"
+
+msgid "Joiner"
+msgstr "اتصال دهنده"
+
+msgid "Keep size"
+msgstr "سایز را نگه دار"
+
+msgid "KiB"
+msgstr "کیبی‌بایت"
+
+msgid "Language"
+msgstr "زبان"
+
+msgid "Last"
+msgstr "آخرین"
+
+msgid "Last error"
+msgstr "Last error"
+
+msgid "Lazy binding"
+msgstr "اتصال تنبل"
+
+msgid "Length"
+msgstr "طول"
+
+msgid "Libraries"
+msgstr "کتابخانه ها"
+
+msgid "Library"
+msgstr "کتابخانه"
+
+msgid "Library name"
+msgstr "نام کتابخانه"
+
+msgid "Licensing"
+msgstr "لایسنس"
+
+msgid "Linker"
+msgstr "لینک کننده"
+
+msgid "Links"
+msgstr "لینک ها"
+
+msgid "List"
+msgstr "لیست"
+
+msgid "Load"
+msgstr "بارگذاری"
+
+msgid "Load config"
+msgstr "لود کانفیگ"
+
+msgid "Loader"
+msgstr "لودر"
+
+msgid "Local relocation"
+msgstr "جابجایی محلی"
+
+msgid "Location"
+msgstr "مکان"
+
+msgid "Log"
+msgstr "لاگ"
+
+msgid "Logical Screen Descriptor"
+msgstr "Logical Screen Descriptor"
+
+msgid "MB"
+msgstr "مگابایت"
+
+msgid "Main"
+msgstr "اصلی"
+
+msgid "Main database updated successfully"
+msgstr "Main database updated successfully"
+
+msgid "Main module"
+msgstr "ماژول اصلی"
+
+msgid "MainWindow"
+msgstr "پنجره اصلی"
+
+msgid "Malware"
+msgstr "بدافزار"
+
+msgid "Manifest"
+msgstr "مانیفست"
+
+msgid "Map"
+msgstr "نقشه"
+
+msgid "Maps"
+msgstr "نقشه‌ها"
+
+msgid "Mask"
+msgstr "ماسک"
+
+msgid "Match case"
+msgstr "حساس به حروف"
+
+msgid "Matches"
+msgstr "مطابقت‌ها"
+
+msgid "Maximum"
+msgstr "حداکثر"
+
+msgid "Memory"
+msgstr "حافظه"
+
+msgid "Memory map"
+msgstr "نقشه حافظه"
+
+msgid "Memory scan"
+msgstr "اسکن حافظه"
+
+msgid "Metadata"
+msgstr "متا دیتا"
+
+msgid "Metadata table"
+msgstr "جدول متادیتا"
+
+msgid "Method"
+msgstr "متود"
+
+msgid "Methods"
+msgstr "متدها"
+
+msgid "MiB"
+msgstr "میبی‌بایت"
+
+msgid "Min length"
+msgstr "حداقل طول"
+
+msgid "Missing Resources"
+msgstr "Missing Resources"
+
+msgid "Mode"
+msgstr "حالت"
+
+msgid "Mode is not available for this file type"
+msgstr "Mode is not available for this file type"
+
+msgid "Modules"
+msgstr "ماژول ها"
+
+msgid "More info"
+msgstr "اطلاعات بیشتر"
+
+msgid "Multiplatform"
+msgstr "چند پلتفرمی"
+
+msgid "Multisearch"
+msgstr "جستجوی چندگانه"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Native"
+msgstr "Native"
+
+msgid "Network error"
+msgstr "خطای اینترنت"
+
+msgid "Network error while checking for database updates"
+msgstr "Network error while checking for database updates"
+
+msgid "New"
+msgstr "جدید"
+
+msgid "New version available"
+msgstr "ورژن جدید موجود است"
+
+msgid "Next"
+msgstr "بعدی"
+
+msgid "Next visited"
+msgstr "مشاهده بعدی"
+
+msgid "No"
+msgstr "نه"
+
+msgid "No YARA rules were loaded"
+msgstr "No YARA rules were loaded"
+
+msgid "No image loaded"
+msgstr "No image loaded"
+
+msgid "No local info.ini for %1. Bootstrapping from GitHub release %2."
+msgstr "No local info.ini for %1. Bootstrapping from GitHub release %2."
+
+msgid "No update available"
+msgstr "ورژن جدیدی موجود نیست"
+
+msgid "None"
+msgstr "هیچکدام"
+
+msgid "Nothing found"
+msgstr "چیزی پیدا نشد"
+
+msgid "Null-terminated"
+msgstr "خاتمه یافته با نال"
+
+msgid "Numbers"
+msgstr "اعداد"
+
+msgid "OK"
+msgstr "باشه"
+
+msgid "Obfuscator"
+msgstr "مبهم‌ساز"
+
+msgid "Object"
+msgstr "شئ"
+
+msgid "Objects"
+msgstr "اشیاء"
+
+msgid "Offset"
+msgstr "آفست"
+
+msgid "One operand"
+msgstr "تک عملوندی"
+
+msgid "Online tools"
+msgstr "ابزار های انلاین"
+
+msgid "Opcode"
+msgstr "کد عملیات"
+
+msgid "Opcode group"
+msgstr "گروه اپکد"
+
+msgid "Opcodes"
+msgstr "اپکدها"
+
+msgid "Open"
+msgstr "باز کردن"
+
+msgid "Open Directory"
+msgstr "Open Directory"
+
+msgid "Open directory"
+msgstr "باز کردن پوشه"
+
+msgid "Open file"
+msgstr "باز کردن فایل"
+
+msgid "Operation system"
+msgstr "سیستم عامل"
+
+msgid "Options"
+msgstr "امکانات"
+
+msgid "Output"
+msgstr "خروجی"
+
+msgid "Overlay"
+msgstr "اورلی"
+
+msgid "Overlay scan"
+msgstr "Overlay scan"
+
+msgid "PE tool"
+msgstr "PE tool"
+
+msgid "Package"
+msgstr "بسته"
+
+msgid "Packer"
+msgstr "پک کننده"
+
+msgid "Part"
+msgstr "Part"
+
+msgid "Patch"
+msgstr "پچ"
+
+msgid "Path traversal detected"
+msgstr "Path traversal detected"
+
+msgid "Path"
+msgstr "Path"
+
+msgid "Pause"
+msgstr "توقف"
+
+msgid "Paused"
+msgstr "متوقف شده"
+
+msgid "Payload"
+msgstr "پی‌لود"
+
+msgid "Personal data"
+msgstr "داده‌های شخصی"
+
+msgid "Plain Text"
+msgstr "متن ساده"
+
+msgid "Plain Text Extension"
+msgstr "Plain Text Extension"
+
+msgid "Platform"
+msgstr "پلتفرم"
+
+msgid "Player"
+msgstr "پلیر"
+
+msgid "Please restart the application"
+msgstr "لطفا برنامه را دوباره اجرا کنید"
+
+msgid "Please run the program as an administrator"
+msgstr "لطفا برنامه را در حالت ادمین اجرا کنید"
+
+msgid "Please use valid API key"
+msgstr "کلید API معتبر نیست"
+
+msgid "Pointer"
+msgstr "اشاره گر"
+
+msgid "Position"
+msgstr "موقعیت"
+
+msgid "Previous visited"
+msgstr "مشاهده قبلی"
+
+msgid "Primary Volume Descriptor"
+msgstr "Primary Volume Descriptor"
+
+msgid "Print"
+msgstr "چاپ"
+
+msgid "Process"
+msgstr "پردازش"
+
+msgid "Producer"
+msgstr "تولیدکننده"
+
+msgid "Profiling"
+msgstr "پروفایلینگ"
+
+msgid "Program name"
+msgstr "نام برنامه"
+
+msgid "Programs"
+msgstr "برنامه ها"
+
+msgid "Protection"
+msgstr "محافظت"
+
+msgid "Protector"
+msgstr "حفاظت کننده"
+
+msgid "Protector data"
+msgstr "محافظت کننده اطلاعات"
+
+msgid "Prototype"
+msgstr "نمونه اولیه"
+
+msgid "Publisher"
+msgstr "انتشار دهنده"
+
+msgid "RIFF Header"
+msgstr "RIFF Header"
+
+msgid "ROM"
+msgstr "ROM"
+
+msgid "Raw"
+msgstr "Raw"
+
+msgid "Raw data"
+msgstr "داده خام"
+
+msgid "Read buffer size"
+msgstr "Read buffer size"
+
+msgid "Read error"
+msgstr "خطای خواندن"
+
+msgid "Readonly"
+msgstr "فقط خواندنی"
+
+msgid "Rebase"
+msgstr "ری‌بیس"
+
+msgid "Recent files"
+msgstr "فایل های جاری"
+
+msgid "Record"
+msgstr "Record"
+
+msgid "Recursive"
+msgstr "بازگشتی"
+
+msgid "Recursive scan"
+msgstr "اسکن بازگشتی"
+
+msgid "References"
+msgstr "ارجاع‌ها"
+
+msgid "Region"
+msgstr "ریجن"
+
+msgid "Regions"
+msgstr "نواحی"
+
+msgid "Register"
+msgstr "رجیستر"
+
+msgid "Registers"
+msgstr "رجیسترها"
+
+msgid "Regular expression"
+msgstr "عبارت منظم"
+
+msgid "Relative address"
+msgstr "آدرس نسبی"
+
+msgid "Relative virtual address"
+msgstr "آدرس مجازی نسبی"
+
+msgid "Reload"
+msgstr "لود دوباره"
+
+msgid "Relocs"
+msgstr "جابجایی‌ها"
+
+msgid "Remaining:"
+msgstr "Remaining:"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Rescan"
+msgstr "اسکن مجدد"
+
+msgid "Reserved"
+msgstr "Reserved"
+
+msgid "Resize"
+msgstr "تغییر سایز"
+
+msgid "Resource"
+msgstr "منبع"
+
+msgid "Resource scan"
+msgstr "Resource scan"
+
+msgid "Resources"
+msgstr "منابع"
+
+msgid "Restart"
+msgstr "شروع دوباره"
+
+msgid "Result"
+msgstr "نتیجه"
+
+msgid "Rule name"
+msgstr "نام قانون"
+
+msgid "Rules"
+msgstr "قوانین"
+
+msgid "Run"
+msgstr "اجرا"
+
+msgid "Run path"
+msgstr "مسیر اجرا"
+
+msgid "Running"
+msgstr "در حال اجرا"
+
+msgid "Runtime driver"
+msgstr "درایور زمان اجرا"
+
+msgid "SFX"
+msgstr "SFX"
+
+msgid "SFX data"
+msgstr "SFX data"
+
+msgid "SZDD Header"
+msgstr "SZDD Header"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Save Image"
+msgstr "Save Image"
+
+msgid "Save as"
+msgstr "ذخیره به عنوان"
+
+msgid "Save backup"
+msgstr "ذخیره بکاپ"
+
+msgid "Save diagram"
+msgstr "ذخیره دیاگرام"
+
+msgid "Save dump"
+msgstr "ذخیره دامپ"
+
+msgid "Save file"
+msgstr "ذخیره فایل"
+
+msgid "Save history"
+msgstr "ذخیره تاریخچه"
+
+msgid "Save last directory"
+msgstr "ذخیره آخرین دایرکتوری"
+
+msgid "Save result"
+msgstr "ذخیره نتایج"
+
+msgid "Scan"
+msgstr "اسکن"
+
+msgid "Scan after open"
+msgstr "اسکن بعد از باز کردن"
+
+msgid "Scan engine"
+msgstr "موتور اسکن"
+
+msgid "Schema"
+msgstr "شمای"
+
+msgid "Script"
+msgstr "اسکریپت"
+
+msgid "Scripts"
+msgstr "اسکریپت‌ها"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search from"
+msgstr "جستجو از"
+
+msgid "Search signature"
+msgstr "جستجوی امضا"
+
+msgid "Search signatures"
+msgstr "جستجوی امضا"
+
+msgid "Search string"
+msgstr "جستجوی رشته"
+
+msgid "Search strings"
+msgstr "جستجوی رشته"
+
+msgid "Search value"
+msgstr "جستجوی مقدار"
+
+msgid "Search values"
+msgstr "جستجوی مقدار"
+
+msgid "Section"
+msgstr "بخش"
+
+msgid "Section name"
+msgstr "نام بخش"
+
+msgid "Sections"
+msgstr "بخش ها"
+
+msgid "Segment"
+msgstr "سگمنت"
+
+msgid "Segment %1"
+msgstr "Segment %1"
+
+msgid "Segment registers"
+msgstr "رجیسترهای سگمنت"
+
+msgid "Segments"
+msgstr "سگمنت ها"
+
+msgid "Select"
+msgstr "انتخاب"
+
+msgid "Select Value"
+msgstr "Select Value"
+
+msgid "Selected"
+msgstr "انتخاب شده"
+
+msgid "Selection"
+msgstr "انتخاب"
+
+msgid "Serial number"
+msgstr "سریال نامبر"
+
+msgid "Set system environment variable"
+msgstr "Set system environment variable"
+
+msgid "Shortcut"
+msgstr "میانبر"
+
+msgid "Shortcuts"
+msgstr "میانبر ها"
+
+msgid "Show"
+msgstr "دیدن"
+
+msgid "Show Offsets"
+msgstr "Show Offsets"
+
+msgid "Show Presentation"
+msgstr "Show Presentation"
+
+msgid "Show all"
+msgstr "دیدن همه"
+
+msgid "Show colons in addresses"
+msgstr "نمایش ویرگول در آدرس ها"
+
+msgid "Show comments"
+msgstr "نمایش کامنت ها"
+
+msgid "Show detects"
+msgstr "نمایش یافته ها"
+
+msgid "Show in"
+msgstr "نمایش در"
+
+msgid "Show info"
+msgstr "نمایش اطلاعات"
+
+msgid "Show logo"
+msgstr "نمایش لوگو"
+
+msgid "Show type"
+msgstr "نمایش نوع"
+
+msgid "Show valid"
+msgstr "نمایش اعتبار"
+
+msgid "Show version"
+msgstr "نمایش نسخه"
+
+msgid "Sign tool"
+msgstr "ابزار امضا"
+
+msgid "Signature"
+msgstr "امضا کننده"
+
+msgid "Signature name"
+msgstr "نام امضا"
+
+msgid "Signatures"
+msgstr "امضاها"
+
+msgid "Signed"
+msgstr "امضا شده"
+
+msgid "Single application"
+msgstr "تک اپلیکیشن"
+
+msgid "Size"
+msgstr "سایز"
+
+msgid "Size of image"
+msgstr "حجم عکس"
+
+msgid "Social Media"
+msgstr "Social Media"
+
+msgid "Sort"
+msgstr "مرتب‌سازی"
+
+msgid "Sort elements"
+msgstr "مرتب کردن عنصر ها"
+
+msgid "Sort type"
+msgstr "نوع مرتب سازی"
+
+msgid "Sorted"
+msgstr "مرتب شده"
+
+msgid "Source code"
+msgstr "سورس کد"
+
+msgid "Spaces"
+msgstr "فضاها"
+
+msgid "Stack"
+msgstr "پشته"
+
+msgid "Stack registers"
+msgstr "رجیسترهای پشته"
+
+msgid "Start"
+msgstr "شروع"
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Stay on top"
+msgstr "ماندن در بالا"
+
+msgid "Step into"
+msgstr "ورود به مرحله"
+
+msgid "Step over"
+msgstr "عبور از مرحله"
+
+msgid "Stop"
+msgstr "توقف"
+
+msgid "Stream"
+msgstr "Stream"
+
+msgid "Stream Footer"
+msgstr "Stream Footer"
+
+msgid "Stream Header"
+msgstr "Stream Header"
+
+msgid "Stream offset"
+msgstr "Stream offset"
+
+msgid "Stream size"
+msgstr "Stream size"
+
+msgid "Streams"
+msgstr "Streams"
+
+msgid "String"
+msgstr "رشته"
+
+msgid "String table"
+msgstr "جدول رشته"
+
+msgid "Strings"
+msgstr "رشته"
+
+msgid "Strings view not implemented yet"
+msgstr "Strings view not implemented yet"
+
+msgid "Struct"
+msgstr "ساختار"
+
+msgid "Struct and unions"
+msgstr "ساختار و یونیون‌ها"
+
+msgid "Structs"
+msgstr "ساختارها"
+
+msgid "Stub"
+msgstr "استاب"
+
+msgid "Style"
+msgstr "استیل"
+
+msgid "Subdirectories"
+msgstr "زیرشاخه ها"
+
+msgid "Subject"
+msgstr "موضوع"
+
+msgid "Symbol"
+msgstr "سمبل"
+
+msgid "Symbol table"
+msgstr "جدول سمبل"
+
+msgid "Symbols"
+msgstr "سمبل ها"
+
+msgid "Sync"
+msgstr "همگام‌سازی"
+
+msgid "Syntax"
+msgstr "سینتکس"
+
+msgid "TABLE"
+msgstr "TABLE"
+
+msgid "TB"
+msgstr "ترابایت"
+
+msgid "Table"
+msgstr "فهرست"
+
+msgid "Table Directory"
+msgstr "Table Directory"
+
+msgid "Table of contents"
+msgstr "فهرست مطالب"
+
+msgid "Table views"
+msgstr "نمای جدول"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Tags"
+msgstr "تگ‌ها"
+
+msgid "Text"
+msgstr "متن"
+
+msgid "Text color"
+msgstr "Text color"
+
+msgid "Text content"
+msgstr "Text content"
+
+msgid "Text documents"
+msgstr "سند متنی"
+
+msgid "Text editors"
+msgstr "ادیتورهای متن"
+
+msgid "Text files"
+msgstr "فایل های متنی"
+
+msgid "Thanks"
+msgstr "ممنون"
+
+msgid "The file is not signed"
+msgstr "فایل امضا نشده است"
+
+msgid "The file is signed and the signature was verified"
+msgstr "پرونده امضا شد و امضا تأیید شد"
+
+msgid "The signature error"
+msgstr "خطای سیگنیچر"
+
+msgid "The signature is present, but not trusted"
+msgstr "امضا کننده موجود است، اما قابل اعتماد نیست"
+
+msgid "The signature is present, but specifically disallowed"
+msgstr "امضا کننده موجود است، اما به طور خاص مجاز نیست"
+
+msgid "The value copied to clipboard"
+msgstr "مقدار در کلیپبورد کپی شد"
+
+msgid "Threads"
+msgstr "نخها"
+
+msgid "TiB"
+msgstr "تیبی‌بایت"
+
+msgid "Time"
+msgstr "زمان"
+
+msgid "Time date stamp"
+msgstr "مهر زمان و تاریخ"
+
+msgid "Toggle"
+msgstr "تغییر وضعیت"
+
+msgid "Tool"
+msgstr "ابزار"
+
+msgid "Tools"
+msgstr "ابزار ها"
+
+msgid "Total"
+msgstr "کل"
+
+msgid "Trace"
+msgstr "ردیابی"
+
+msgid "Trace into"
+msgstr "ردیابی به داخل"
+
+msgid "Trace over"
+msgstr "ردیابی از روی"
+
+msgid "Trailer"
+msgstr "Trailer"
+
+msgid "Tree"
+msgstr "نمایش درختی"
+
+msgid "Tree views"
+msgstr "نمای درختی"
+
+msgid "Trojan"
+msgstr "تروجان"
+
+msgid "Two operands"
+msgstr "دو عملوندی"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "U.Size"
+msgstr "U.Size"
+
+msgid "UNKNOWN"
+msgstr "UNKNOWN"
+
+msgid "Unexpected end of data"
+msgstr "Unexpected end of data"
+
+msgid "Unicode"
+msgstr "یونیکد"
+
+msgid "Universal"
+msgstr "جهانی"
+
+msgid "Unknown"
+msgstr "ناشناخته"
+
+msgid "Unknown compression method"
+msgstr "Unknown compression method"
+
+msgid "Unpack"
+msgstr "انپک"
+
+msgid "Unsigned"
+msgstr "بدون علامت"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Update information"
+msgstr "به روزرسانی اطلاعات"
+
+msgid "Upload the file for analyze?"
+msgstr "فایل برای انالیز بارگذاری شود ؟"
+
+msgid "Upper"
+msgstr "بالایی"
+
+msgid "Uppercase"
+msgstr "حروف بزرگ"
+
+msgid "Use cache"
+msgstr "Use cache"
+
+msgid "V.Size"
+msgstr "V.Size"
+
+msgid "Value"
+msgstr "مقدار"
+
+msgid "Values"
+msgstr "مقادیر"
+
+msgid "Variable"
+msgstr "متغیر"
+
+msgid "Verbose"
+msgstr "با جزئیات"
+
+msgid "Version"
+msgstr "ورژن"
+
+msgid "Video"
+msgstr "ویدیو"
+
+msgid "View"
+msgstr "مشاهده"
+
+msgid "Viewer"
+msgstr "ناظر"
+
+msgid "Virtual address"
+msgstr "آدرس مجازی"
+
+msgid "Virtual machine"
+msgstr "ماشین مجازی"
+
+msgid "Virtual size"
+msgstr "سایز مجازی"
+
+msgid "Virus"
+msgstr "ویروس"
+
+msgid "Visualization"
+msgstr "تجسم"
+
+msgid "Warning"
+msgstr "هشدار"
+
+msgid "Weak binding"
+msgstr "اتصال ضعیف"
+
+msgid "Website"
+msgstr "وبسایت"
+
+msgid "Width"
+msgstr "طول"
+
+msgid "Wildcard"
+msgstr "عام"
+
+msgid "Would you like to download them now?"
+msgstr "Would you like to download them now?"
+
+msgid "Write error"
+msgstr "خطا در نوشتن"
+
+msgid "YARA rules path not found"
+msgstr "YARA rules path not found"
+
+msgid "YARA scan failed"
+msgstr "YARA scan failed"
+
+msgid "Zeros"
+msgstr "صفرها"
+
+msgid "Zoom"
+msgstr "بزرگنمایی"
+
+msgid "Zoom In"
+msgstr "Zoom In"
+
+msgid "Zoom Out"
+msgstr "Zoom Out"
+
+msgid "data"
+msgstr "دیتا"
+
+msgid "extender"
+msgstr "extender"
+
+msgid "false"
+msgstr "غلط"
+
+msgid "kB"
+msgstr "کیلوبایت"
+
+msgid "msec"
+msgstr "میلی‌ثانیه"
+
+msgid "not packed"
+msgstr "پک نشده"
+
+msgid "packed"
+msgstr "پک شده"
+
+msgid "true"
+msgstr "صحیح"
+

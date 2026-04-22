@@ -1,0 +1,208 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+INCLUDEPATH += $$PWD/Algos
+DEPENDPATH += $$PWD/Algos
+INCLUDEPATH += $$PWD/3rdparty/ppmd/src
+DEPENDPATH += $$PWD/3rdparty/ppmd/src
+
+HEADERS += \
+    $$PWD/Algos/xarjdecoder.h \
+    $$PWD/Algos/xacedecoder.h \
+    $$PWD/Algos/xlzhdecoder.h \
+    $$PWD/Algos/xrardecoder.h \
+    $$PWD/Algos/xit214decoder.h \
+    $$PWD/Algos/xdeflatedecoder.h \
+    $$PWD/Algos/ximplodedecoder.h \
+    $$PWD/Algos/xlzmadecoder.h \
+    $$PWD/Algos/xlzwdecoder.h \
+    $$PWD/Algos/xascii85decoder.h \
+    $$PWD/Algos/xstoredecoder.h \
+    $$PWD/Algos/xbzip2decoder.h \
+    $$PWD/Algos/xbrotlidecoder.h \
+    $$PWD/Algos/xlzssdecoder.h \
+    $$PWD/Algos/xshrinkdecoder.h \
+    $$PWD/Algos/xreducedecoder.h \
+    $$PWD/Algos/xzipcryptodecoder.h \
+    $$PWD/Algos/xppmddecoder.h \
+    $$PWD/Algos/xppmdrangedecoder.h \
+    $$PWD/Algos/xppmdmodel.h \
+    $$PWD/Algos/xppmd7model.h \
+    $$PWD/Algos/xaesdecoder.h \
+    $$PWD/Algos/xbcj2decoder.h \
+    $$PWD/Algos/xsha256decoder.h \
+    $$PWD/Algos/xblake2sp.h \
+    $$PWD/Algos/xzstddecoder.h \
+    $$PWD/Algos/xucldecoder.h \
+    $$PWD/Algos/xucldecoder_acc.h \
+    $$PWD/Algos/xlzodecoder.h \
+    $$PWD/Algos/xcompressdecoder.h \
+    $$PWD/x_ar.h \
+    $$PWD/xapk.h \
+    $$PWD/xapks.h \
+    $$PWD/xseaarc.h \
+    $$PWD/xfreearc.h \
+    $$PWD/xarj.h \
+    $$PWD/xace.h \
+    $$PWD/xarchive.h \
+    $$PWD/xcab.h \
+    $$PWD/xcfbf.h \
+    $$PWD/xcpio.h \
+    $$PWD/xcompress.h \
+    $$PWD/xdecompress.h \
+    $$PWD/xcompresseddevice.h \
+    $$PWD/xdeb.h \
+    $$PWD/xdos16.h \
+    $$PWD/xgzip.h \
+    $$PWD/xipa.h \
+    $$PWD/xiso9660.h \
+    $$PWD/xudf.h \
+    $$PWD/xjar.h \
+    $$PWD/xlha.h \
+    $$PWD/xmachofat.h \
+    $$PWD/xrar.h \
+    $$PWD/xsevenzip.h \
+    $$PWD/xsquashfs.h \
+    $$PWD/xtar.h \
+    $$PWD/xtarcompressed.h \
+    $$PWD/xtar_gz.h \
+    $$PWD/xtar_bzip2.h \
+    $$PWD/xtar_lzip.h \
+    $$PWD/xtar_lzma.h \
+    $$PWD/xtar_lzop.h \
+    $$PWD/xtar_xz.h \
+    $$PWD/xtar_zstd.h \
+    $$PWD/xtar_compress.h \
+    $$PWD/xzip.h \
+    $$PWD/xnpm.h \
+    $$PWD/xszdd.h \
+    $$PWD/xbzip2.h \
+    $$PWD/xbrotli.h \
+    $$PWD/xlzip.h \
+    $$PWD/xxz.h \
+    $$PWD/xzlib.h \
+    $$PWD/xzstd.h \
+    $$PWD/xlzo.h \
+    $$PWD/xcompressz.h \
+    $$PWD/xminidump.h \
+    $$PWD/xdmg.h
+
+SOURCES += \
+    $$PWD/Algos/xarjdecoder.cpp \
+    $$PWD/Algos/xacedecoder.cpp \
+    $$PWD/Algos/xlzhdecoder.cpp \
+    $$PWD/Algos/xrardecoder.cpp \
+    $$PWD/Algos/xit214decoder.cpp \
+    $$PWD/Algos/xdeflatedecoder.cpp \
+    $$PWD/Algos/ximplodedecoder.cpp \
+    $$PWD/Algos/xlzmadecoder.cpp \
+    $$PWD/Algos/xlzwdecoder.cpp \
+    $$PWD/Algos/xascii85decoder.cpp \
+    $$PWD/Algos/xstoredecoder.cpp \
+    $$PWD/Algos/xbzip2decoder.cpp \
+    $$PWD/Algos/xbrotlidecoder.cpp \
+    $$PWD/Algos/xlzssdecoder.cpp \
+    $$PWD/Algos/xshrinkdecoder.cpp \
+    $$PWD/Algos/xreducedecoder.cpp \
+    $$PWD/Algos/xzipcryptodecoder.cpp \
+    $$PWD/Algos/xppmddecoder.cpp \
+    $$PWD/Algos/xppmdrangedecoder.cpp \
+    $$PWD/Algos/xppmdmodel.cpp \
+    $$PWD/Algos/xppmd7model.cpp \
+    $$PWD/Algos/xaesdecoder.cpp \
+    $$PWD/Algos/xbcj2decoder.cpp \
+    $$PWD/Algos/xsha256decoder.cpp \
+    $$PWD/Algos/xblake2sp.cpp \
+    $$PWD/Algos/xzstddecoder.cpp \
+    $$PWD/Algos/xucldecoder.cpp \
+    $$PWD/Algos/zstddeclib.cpp \
+    $$PWD/Algos/xlzodecoder.cpp \
+    $$PWD/Algos/xcompressdecoder.cpp \
+    $$PWD/x_ar.cpp \
+    $$PWD/xapk.cpp \
+    $$PWD/xapks.cpp \
+    $$PWD/xseaarc.cpp \
+    $$PWD/xfreearc.cpp \
+    $$PWD/xarj.cpp \
+    $$PWD/xace.cpp \
+    $$PWD/xarchive.cpp \
+    $$PWD/xcab.cpp \
+    $$PWD/xcfbf.cpp \
+    $$PWD/xcpio.cpp \
+    $$PWD/xcompress.cpp \
+    $$PWD/xdecompress.cpp \
+    $$PWD/xcompresseddevice.cpp \
+    $$PWD/xdeb.cpp \
+    $$PWD/xdos16.cpp \
+    $$PWD/xgzip.cpp \
+    $$PWD/xipa.cpp \
+    $$PWD/xiso9660.cpp \
+    $$PWD/xudf.cpp \
+    $$PWD/xjar.cpp \
+    $$PWD/xlha.cpp \
+    $$PWD/xmachofat.cpp \
+    $$PWD/xrar.cpp \
+    $$PWD/xsevenzip.cpp \
+    $$PWD/xsquashfs.cpp \
+    $$PWD/xtar.cpp \
+    $$PWD/xtarcompressed.cpp \
+    $$PWD/xtar_gz.cpp \
+    $$PWD/xtar_bzip2.cpp \
+    $$PWD/xtar_lzip.cpp \
+    $$PWD/xtar_lzma.cpp \
+    $$PWD/xtar_lzop.cpp \
+    $$PWD/xtar_xz.cpp \
+    $$PWD/xtar_zstd.cpp \
+    $$PWD/xtar_compress.cpp \
+    $$PWD/xzip.cpp \
+    $$PWD/xnpm.cpp \
+    $$PWD/xszdd.cpp \
+    $$PWD/xbzip2.cpp \
+    $$PWD/xbrotli.cpp \
+    $$PWD/xlzip.cpp \
+    $$PWD/xxz.cpp \
+    $$PWD/xzlib.cpp \
+    $$PWD/xzstd.cpp \
+    $$PWD/xlzo.cpp \
+    $$PWD/xcompressz.cpp \
+    $$PWD/xminidump.cpp \
+    $$PWD/xdmg.cpp
+
+!contains(XCONFIG, xbinary) {
+    XCONFIG += xbinary
+    include($$PWD/../Formats/xbinary.pri)
+}
+
+!contains(XCONFIG, xmach) {
+    XCONFIG += xmach
+    include($$PWD/../Formats/exec/xmach.pri) # MACHFAT archive contains Mach-O
+}
+
+!contains(XCONFIG, xjavaclass) {
+    XCONFIG += xjavaclass
+    include($$PWD/../Formats/formats/xjavaclass.pri)
+}
+
+!contains(XCONFIG, zlib) {
+    XCONFIG += zlib
+    include($$PWD/3rdparty/zlib/zlib.pri)
+}
+
+!contains(XCONFIG, bzip2) {
+    XCONFIG += bzip2
+    include($$PWD/3rdparty/bzip2/bzip2.pri)
+}
+
+!contains(XCONFIG, lzma) {
+    XCONFIG += lzma
+    include($$PWD/3rdparty/lzma/lzma.pri)
+}
+
+!contains(XCONFIG, ppmd) {
+    XCONFIG += ppmd
+    include($$PWD/3rdparty/ppmd/ppmd.pri)
+}
+
+DISTFILES += \
+    $$PWD/LICENSE \
+    $$PWD/README.md \
+    $$PWD/xarchive.cmake

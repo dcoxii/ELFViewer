@@ -1,0 +1,488 @@
+/* Copyright (c) 2022-2026 hors<horsicq@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+#include "xdos16.h"
+
+XBinary::XCONVERT _TABLE_XDOS16_STRUCTID[] = {
+    {XDOS16::STRUCTID_UNKNOWN, "Unknown", QObject::tr("Unknown")},
+    {XDOS16::STRUCTID_LOADER, "LOADER", QString("Loader")},
+    {XDOS16::STRUCTID_SEGMENT, "SEGMENT", QString("Segment")},
+    {XDOS16::STRUCTID_PAYLOAD, "PAYLOAD", QString("Payload")},
+};
+
+XDOS16::XDOS16(QIODevice *pDevice) : XArchive(pDevice)
+{
+}
+
+XDOS16::~XDOS16()
+{
+}
+
+bool XDOS16::isValid(PDSTRUCT *pPdStruct)
+{
+    Q_UNUSED(pPdStruct)
+
+    bool bResult = false;
+
+    if (getSize() > 1024) {
+        if (read_uint16(0) == XMSDOS_DEF::S_IMAGE_DOS_SIGNATURE_MZ) {
+            bResult = (getFileType() != FT_UNKNOWN);
+        }
+    }
+
+    return bResult;
+}
+
+bool XDOS16::isValid(QIODevice *pDevice, PDSTRUCT *pPdStruct)
+{
+    XDOS16 xdos16(pDevice);
+
+    return xdos16.isValid();
+}
+
+quint64 XDOS16::getNumberOfRecords(PDSTRUCT *pPdStruct)
+{
+    Q_UNUSED(pPdStruct)
+
+    quint64 nResult = 0;
+
+    quint16 nCP = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cp));
+    quint16 nCblp = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cblp));
+    qint64 nSize = getSize();
+
+    if (nCP > 0) {
+        nResult = 1;
+        qint64 nSignatureOffset = (nCP - 1) * 512 + nCblp;
+        if (nSize - nSignatureOffset) {
+            while (true) {
+                quint16 nSignature = read_uint16(nSignatureOffset);
+
+                if (nSignature == 0x5742) {  // BW
+                    nSignatureOffset = read_uint32(nSignatureOffset + offsetof(XMSDOS_DEF::dos16m_exe_header, next_header_pos));
+                    nResult++;
+                } else if (nSignature == 0x464D) {  // MF - find info
+                    nSignatureOffset += read_uint32(nSignatureOffset + 2);
+                } else if (nSignature == 0x5A4D) {  // MZ
+                    nResult++;
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    return nResult;
+}
+
+QString XDOS16::getOsVersion()
+{
+    return "3.0";
+}
+
+XBinary::OSNAME XDOS16::getOsName()
+{
+    return OSNAME_MSDOS;
+}
+
+QList<XArchive::RECORD> XDOS16::getRecords(qint32 nLimit, PDSTRUCT *pPdStruct)
+{
+    Q_UNUSED(nLimit)
+    Q_UNUSED(pPdStruct)
+
+    QList<XArchive::RECORD> listResult;
+
+    quint16 nCP = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cp));
+    quint16 nCblp = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cblp));
+    qint64 nSize = getSize();
+
+    if (nCP > 0) {
+        qint64 nSignatureOffset = (nCP - 1) * 512 + nCblp;
+        {
+            RECORD record = {};
+
+            record.spInfo.sRecordName = tr("Loader");
+            record.nDataOffset = 0;
+            record.nDataSize = nSignatureOffset;
+            record.spInfo.nUncompressedSize = nSignatureOffset;
+            record.spInfo.compressMethod = HANDLE_METHOD_STORE;
+
+            listResult.append(record);
+        }
+
+        if (nSize - nSignatureOffset) {
+            while (true) {
+                quint16 nSignature = read_uint16(nSignatureOffset);
+
+                if (nSignature == 0x5742) {  // BW
+                    qint64 nNewSignatureOffset = read_uint32(nSignatureOffset + offsetof(XMSDOS_DEF::dos16m_exe_header, next_header_pos));
+                    QString sName = read_ansiString(nSignatureOffset + offsetof(XMSDOS_DEF::dos16m_exe_header, EXP_path));
+
+                    nNewSignatureOffset = qMin(nNewSignatureOffset, nSize);
+
+                    RECORD record = {};
+
+                    record.spInfo.sRecordName = sName;
+                    record.nDataOffset = nSignatureOffset;
+                    record.nDataSize = nNewSignatureOffset - nSignatureOffset;
+                    record.spInfo.nUncompressedSize = nNewSignatureOffset - nSignatureOffset;
+                    record.spInfo.compressMethod = HANDLE_METHOD_STORE;
+
+                    listResult.append(record);
+
+                    nSignatureOffset = nNewSignatureOffset;
+                } else if (nSignature == 0x464D) {  // MF - find info
+                    nSignatureOffset += read_uint32(nSignatureOffset + 2);
+                } else if (nSignature == 0x5A4D) {  // MZ
+                    RECORD record = {};
+
+                    record.spInfo.sRecordName = tr("Payload");
+                    record.nDataOffset = nSignatureOffset;
+                    record.nDataSize = nSize - nSignatureOffset;
+                    record.spInfo.nUncompressedSize = nSize - nSignatureOffset;
+                    record.spInfo.compressMethod = HANDLE_METHOD_STORE;
+
+                    listResult.append(record);
+
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    return listResult;
+}
+
+QList<XBinary::FPART> XDOS16::getFileParts(quint32 nFileParts, qint32 nLimit, PDSTRUCT *pPdStruct)
+{
+    Q_UNUSED(nLimit)
+
+    QList<FPART> listResult;
+
+    const qint64 nFileSize = getSize();
+
+    quint16 nCP = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cp));
+    quint16 nCblp = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cblp));
+
+    if (nCP == 0) {
+        return listResult;
+    }
+
+    qint64 nSignatureOffset = (nCP - 1) * 512 + nCblp;
+    nSignatureOffset = qBound<qint64>(0, nSignatureOffset, nFileSize);
+
+    // Optional: header part (loader before first signature)
+    if ((nFileParts & FILEPART_HEADER) && (nSignatureOffset > 0)) {
+        FPART header = {};
+        header.filePart = FILEPART_HEADER;
+        header.nFileOffset = 0;
+        header.nFileSize = qMin<qint64>(nSignatureOffset, nFileSize);
+        header.nVirtualAddress = -1;
+        header.sName = tr("Header");
+        listResult.append(header);
+    }
+
+    // Regions: walk BW/MF/MZ chain similar to getRecords/getMemoryMap
+    qint32 nIndex = 0;
+    qint64 nCur = nSignatureOffset;
+    if (nFileSize > nCur) {
+        while (isPdStructNotCanceled(pPdStruct)) {
+            if (!isOffsetValid(nCur + 1)) break;
+            quint16 nSig = read_uint16(nCur);
+
+            if (nSig == 0x5742) {  // BW
+                qint64 nNext = read_uint32(nCur + offsetof(XMSDOS_DEF::dos16m_exe_header, next_header_pos));
+                QString sName = read_ansiString(nCur + offsetof(XMSDOS_DEF::dos16m_exe_header, EXP_path));
+                if ((nNext <= 0) || (nNext > nFileSize)) nNext = nFileSize;  // clamp
+
+                if (nFileParts & FILEPART_REGION) {
+                    FPART part = {};
+                    part.filePart = FILEPART_REGION;
+                    part.nFileOffset = nCur;
+                    part.nFileSize = qMax<qint64>(0, nNext - nCur);
+                    part.nVirtualAddress = -1;
+                    part.sName = sName.isEmpty() ? (tr("Segment") + QString(" %1")).arg(nIndex) : sName;
+                    listResult.append(part);
+                }
+
+                nCur = nNext;
+                nIndex++;
+            } else if (nSig == 0x464D) {  // MF - info block, skip length at +2
+                qint64 nSkip = read_uint32(nCur + 2);
+                nCur += qMax<qint64>(0, nSkip);
+            } else if (nSig == 0x5A4D) {  // MZ payload
+                if (nFileParts & (FILEPART_REGION | FILEPART_DATA)) {
+                    FPART data = {};
+                    data.filePart = (nFileParts & FILEPART_DATA) ? FILEPART_DATA : FILEPART_REGION;
+                    data.nFileOffset = nCur;
+                    data.nFileSize = qMax<qint64>(0, nFileSize - nCur);
+                    data.nVirtualAddress = -1;
+                    data.sName = (data.filePart == FILEPART_DATA) ? tr("Data") : tr("Payload");
+                    listResult.append(data);
+                }
+                break;
+            } else {
+                break;
+            }
+        }
+    }
+
+    // Overlay: any tail not covered by the above when not using DATA-only
+    if ((nFileParts & FILEPART_OVERLAY) && !listResult.isEmpty()) {
+        qint64 nCoveredEnd = 0;
+        for (qint32 nI = 0; nI < listResult.size(); nI++) {
+            const FPART &record = listResult.at(nI);
+            if (record.filePart != FILEPART_OVERLAY) {
+                nCoveredEnd = qMax(nCoveredEnd, record.nFileOffset + qMax<qint64>(0, record.nFileSize));
+            }
+        }
+        if (nCoveredEnd < nFileSize) {
+            FPART ov = {};
+            ov.filePart = FILEPART_OVERLAY;
+            ov.nFileOffset = nCoveredEnd;
+            ov.nFileSize = nFileSize - nCoveredEnd;
+            ov.nVirtualAddress = -1;
+            ov.sName = tr("Overlay");
+            listResult.append(ov);
+        }
+    }
+
+    return listResult;
+}
+
+XBinary::FT XDOS16::getFileType()
+{
+    XBinary::FT result = FT_UNKNOWN;
+
+    quint16 nCP = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cp));
+    quint16 nCblp = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cblp));
+    qint64 nSize = getSize();
+
+    if (nCP > 0) {
+        qint64 nSignatureOffset = (nCP - 1) * 512 + nCblp;
+        if (nSize - nSignatureOffset) {
+            bool bBW = false;
+            while (true) {
+                quint16 nSignature = read_uint16(nSignatureOffset);
+
+                if (nSignature == 0x5742) {  // BW
+                    bBW = true;
+                    result = FT_DOS16M;
+                    nSignatureOffset = read_uint32(nSignatureOffset + offsetof(XMSDOS_DEF::dos16m_exe_header, next_header_pos));
+                } else if (nSignature == 0x464D) {  // MF - find info
+                    nSignatureOffset += read_uint32(nSignatureOffset + 2);
+                } else if (nSignature == 0x5A4D) {  // MZ
+                    qint64 nSignatureOffsetOpt = read_uint32(nSignatureOffset + offsetof(XMSDOS_DEF::IMAGE_DOS_HEADEREX, e_lfanew));
+                    quint16 nSignatureOpt = read_uint16(nSignatureOffsetOpt + nSignatureOffset);
+
+                    if (nSignatureOpt == 0x454E) {  // NE
+                        if (bBW) {
+                            result = FT_DOS16M;
+                        }
+                    } else if (nSignatureOpt == 0x454C) {  // LE
+                        if (bBW) {
+                            result = FT_DOS4G;
+                        }
+                    } else if (nSignatureOpt == 0x584C) {  // LX
+                        if (bBW) {
+                            result = FT_DOS4G;
+                        }
+                    }
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+XBinary::_MEMORY_MAP XDOS16::getMemoryMap(XBinary::MAPMODE mapMode, PDSTRUCT *pPdStruct)
+{
+    Q_UNUSED(mapMode)
+    Q_UNUSED(pPdStruct)
+
+    _MEMORY_MAP result = {};
+
+    qint32 nIndex = 0;
+
+    result.fileType = getFileType();
+
+    result.sArch = QString("386");
+    result.sType = typeIdToString(getType());
+    result.mode = getMode();
+    result.nBinarySize = getSize();
+    result.nImageSize = getImageSize();
+    result.nModuleAddress = getModuleAddress();
+    result.endian = getEndian();
+
+    quint16 nCP = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cp));
+    quint16 nCblp = read_uint16(offsetof(XMSDOS_DEF::IMAGE_DOS_HEADER, e_cblp));
+    qint64 nSize = getSize();
+
+    if (nCP > 0) {
+        qint64 nSignatureOffset = (nCP - 1) * 512 + nCblp;
+
+        {
+            _MEMORY_RECORD record = {};
+            record.nSize = nSignatureOffset;
+            record.nOffset = 0;
+            record.nAddress = -1;
+            record.filePart = FILEPART_REGION;
+            record.sName = tr("Loader");
+            record.nIndex = nIndex++;
+
+            result.listRecords.append(record);
+        }
+
+        if (nSize - nSignatureOffset) {
+            while (true) {
+                quint16 nSignature = read_uint16(nSignatureOffset);
+
+                if (nSignature == 0x5742) {  // BW
+                    qint64 nNewSignatureOffset = read_uint32(nSignatureOffset + offsetof(XMSDOS_DEF::dos16m_exe_header, next_header_pos));
+                    QString sName = read_ansiString(nSignatureOffset + offsetof(XMSDOS_DEF::dos16m_exe_header, EXP_path));
+
+                    nNewSignatureOffset = qMin(nNewSignatureOffset, nSize);
+
+                    _MEMORY_RECORD record = {};
+                    record.nSize = nNewSignatureOffset - nSignatureOffset;
+                    record.nOffset = nSignatureOffset;
+                    record.nAddress = -1;
+                    record.filePart = FILEPART_REGION;
+                    record.sName = sName;
+                    record.nIndex = nIndex++;
+
+                    result.listRecords.append(record);
+
+                    nSignatureOffset = nNewSignatureOffset;
+                } else if (nSignature == 0x464D) {  // MF - find info
+                    // TODO
+                    nSignatureOffset += read_uint32(nSignatureOffset + 2);
+                } else if (nSignature == 0x5A4D) {  // MZ
+                    _MEMORY_RECORD record = {};
+                    record.nSize = nSize - nSignatureOffset;
+                    record.nOffset = nSignatureOffset;
+                    record.nAddress = -1;
+                    record.filePart = FILEPART_REGION;
+                    record.sName = tr("Data");
+                    record.nIndex = nIndex++;
+
+                    result.listRecords.append(record);
+
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+XBinary::MODE XDOS16::getMode()
+{
+    return MODE_16;
+}
+
+QString XDOS16::getArch()
+{
+    return "386";
+}
+
+XBinary::ENDIAN XDOS16::getEndian()
+{
+    return ENDIAN_LITTLE;
+}
+
+qint32 XDOS16::getType()
+{
+    return TYPE_DOSEXTENDER;
+}
+
+QString XDOS16::getFileFormatExt()
+{
+    return "exe";
+}
+
+QString XDOS16::getFileFormatExtsString()
+{
+    return "DOS Extender (*.exe)";
+}
+
+QString XDOS16::getMIMEString()
+{
+    return "application/x-dosexec";
+}
+
+qint64 XDOS16::getFileFormatSize(PDSTRUCT *pPdStruct)
+{
+    Q_UNUSED(pPdStruct)
+
+    return getSize();
+}
+
+QList<XBinary::MAPMODE> XDOS16::getMapModesList()
+{
+    QList<MAPMODE> listResult;
+
+    listResult.append(MAPMODE_REGIONS);
+    listResult.append(MAPMODE_DATA);
+
+    return listResult;
+}
+
+QString XDOS16::structIDToString(quint32 nID)
+{
+    return XBinary::XCONVERT_idToTransString(nID, _TABLE_XDOS16_STRUCTID, sizeof(_TABLE_XDOS16_STRUCTID) / sizeof(XBinary::XCONVERT));
+}
+
+QString XDOS16::structIDToFtString(quint32 nID)
+{
+    return XBinary::XCONVERT_idToFtString(nID, _TABLE_XDOS16_STRUCTID, sizeof(_TABLE_XDOS16_STRUCTID) / sizeof(XBinary::XCONVERT));
+}
+
+quint32 XDOS16::ftStringToStructID(const QString &sFtString)
+{
+    return XCONVERT_ftStringToId(sFtString, _TABLE_XDOS16_STRUCTID, sizeof(_TABLE_XDOS16_STRUCTID) / sizeof(XBinary::XCONVERT));
+}
+
+QList<QString> XDOS16::getSearchSignatures()
+{
+    QList<QString> listResult;
+
+    listResult.append("'MZ'");
+
+    return listResult;
+}
+
+XBinary *XDOS16::createInstance(QIODevice *pDevice, bool bIsImage, XADDR nModuleAddress)
+{
+    Q_UNUSED(bIsImage)
+    Q_UNUSED(nModuleAddress)
+
+    return new XDOS16(pDevice);
+}
+

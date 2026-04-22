@@ -1,0 +1,1318 @@
+/* Copyright (c) 2020-2026 hors<horsicq@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+#include "xhexview.h"
+
+XHexView::XHexView(QWidget *pParent) : XDeviceTableEditView(pParent)
+{
+    addShortcut(X_ID_HEX_DATA_INSPECTOR, this, SLOT(_dataInspector()));
+    addShortcut(X_ID_HEX_DATA_CONVERTOR, this, SLOT(_dataConvertor()));
+    addShortcut(X_ID_HEX_MULTISEARCH, this, SLOT(_multisearch()));
+    addShortcut(X_ID_HEX_GOTO_OFFSET, this, SLOT(_goToOffsetSlot()));
+    addShortcut(X_ID_HEX_GOTO_ADDRESS, this, SLOT(_goToAddressSlot()));
+    addShortcut(X_ID_HEX_DUMPTOFILE, this, SLOT(_dumpToFileSlot()));
+    addShortcut(X_ID_HEX_SELECT_ALL, this, SLOT(_selectAllSlot()));
+    addShortcut(X_ID_HEX_COPY_DATA, this, SLOT(_copyDataSlot()));
+    addShortcut(X_ID_HEX_COPY_OFFSET, this, SLOT(_copyOffsetSlot()));
+    addShortcut(X_ID_HEX_COPY_ADDRESS, this, SLOT(_copyAddressSlot()));
+    addShortcut(X_ID_HEX_FIND_STRING, this, SLOT(_findStringSlot()));
+    addShortcut(X_ID_HEX_FIND_SIGNATURE, this, SLOT(_findSignatureSlot()));
+    addShortcut(X_ID_HEX_FIND_VALUE, this, SLOT(_findValueSlot()));
+    addShortcut(X_ID_HEX_FIND_NEXT, this, SLOT(_findNextSlot()));
+    addShortcut(X_ID_HEX_SIGNATURE, this, SLOT(_hexSignatureSlot()));
+    addShortcut(X_ID_HEX_FOLLOWIN_DISASM, this, SLOT(_disasmSlot()));
+    addShortcut(X_ID_HEX_FOLLOWIN_MEMORYMAP, this, SLOT(_memoryMapSlot()));
+    addShortcut(X_ID_HEX_FOLLOWIN_HEX, this, SLOT(_mainHexSlot()));
+    addShortcut(X_ID_HEX_EDIT_HEX, this, SLOT(_editHex()));
+    addShortcut(X_ID_HEX_EDIT_REMOVE, this, SLOT(_editRemove()));
+    addShortcut(X_ID_HEX_EDIT_RESIZE, this, SLOT(_editResize()));
+
+    m_nBytesProLine = 16;  // Default
+    m_nElementByteSize = 1;
+    m_nSymbolByteSize = 1;
+    _setMode(ELEMENT_MODE_HEX);
+    m_nDataBlockSize = 0;
+    m_nViewStartDelta = 0;
+    m_nThisBase = 0;
+    m_nAddressWidth = 8;
+    m_bIsLocationColon = false;
+
+    addColumn(tr("Address"), 0, true);
+    addColumn(tr("Hex"), 0, true);
+    addColumn(tr("Symbols"), 0, true);
+
+    setTextFont(XOptions::getMonoFont());
+    m_sCodePage = "";
+#if (QT_VERSION_MAJOR < 6) || defined(QT_CORE5COMPAT_LIB)
+    m_pCodePageMenu = m_xCodePageOptions.createCodePagesMenu(this, true);
+    connect(&m_xCodePageOptions, SIGNAL(setCodePage(QString)), this, SLOT(_setCodePage(QString)));
+#endif
+    setLocationMode(XBinaryView::LOCMODE_OFFSET);
+    setMapEnable(true);
+    setMapWidth(20);
+
+    setVerticalLinesVisible(false);
+}
+
+void XHexView::adjustView()
+{
+    setTextFontFromOptions(XOptions::ID_HEX_FONT);
+
+    m_bIsLocationColon = getGlobalOptions()->getValue(XOptions::ID_HEX_LOCATIONCOLON).toBool();
+
+    viewport()->update();
+}
+
+void XHexView::_adjustView()
+{
+    adjustView();
+
+    if (getDevice()) {
+        reload(true);
+    }
+}
+
+void XHexView::setData(QIODevice *pDevice, const XBinaryView::OPTIONS &options, bool bReload, XInfoDB *pInfoDB)
+{
+    bool bReadOnly = false;
+
+    if (pDevice) {
+        bReadOnly = !(pDevice->isWritable());
+    }
+
+    setXInfoDB(pInfoDB);
+
+    setReadonly(bReadOnly);
+
+    XDeviceTableView::setData(pDevice, options);
+
+    adjustView();
+    adjustMap();
+
+    // setMemoryMap(options.memoryMapRegion);
+
+    //    resetCursorData();
+
+    setLocationMode(options.addressMode);
+
+    adjustHeader();
+    adjustColumns();
+    adjustScrollCount();
+
+    if ((options.nStartSelectionOffset > 0) && (options.nStartSelectionOffset != -1)) {
+        _goToViewPos(options.nStartSelectionOffset);
+    }
+
+    _initSetSelection(options.nStartSelectionOffset, options.nSizeOfSelection);
+    //    setCursorViewPos(options.nStartSelectionOffset, COLUMN_HEX);
+
+    if (bReload) {
+        reload(true);
+    }
+}
+
+void XHexView::goToOffset(qint64 nOffset)
+{
+    XVPOS nViewPos = getBinaryView()->deviceOffsetToViewPos(nOffset);
+    _goToViewPos(nViewPos);
+}
+
+// XADDR XHexView::getStartLocation()
+// {
+//     return m_hexOptions.nStartLocation;
+// }
+
+// XADDR XHexView::getSelectionInitLocation()
+// {
+//     return getSelectionInitOffset() + m_hexOptions.nStartLocation;
+// }
+
+void XHexView::setBytesProLine(qint32 nBytesProLine)
+{
+    m_nBytesProLine = nBytesProLine;
+    adjustScrollCount();
+    adjustView();
+}
+
+QList<XShortcuts::MENUITEM> XHexView::getMenuItems()
+{
+    QList<XShortcuts::MENUITEM> listResults;
+
+    STATE menuState = getState();
+
+    if (menuState.nSelectionViewSize) {
+        getShortcuts()->_addMenuItem_Checked(&listResults, X_ID_HEX_DATA_INSPECTOR, this, SLOT(_dataInspector()), XShortcuts::GROUPID_NONE,
+                                             getViewWidgetState(VIEWWIDGET_DATAINSPECTOR));
+        getShortcuts()->_addMenuItem_Checked(&listResults, X_ID_HEX_DATA_CONVERTOR, this, SLOT(_dataConvertor()), XShortcuts::GROUPID_NONE,
+                                             getViewWidgetState(VIEWWIDGET_DATACONVERTOR));
+        getShortcuts()->_addMenuSeparator(&listResults, XShortcuts::GROUPID_NONE);
+    }
+
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_GOTO_OFFSET, this, SLOT(_goToOffsetSlot()), XShortcuts::GROUPID_GOTO);
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_GOTO_ADDRESS, this, SLOT(_goToAddressSlot()), XShortcuts::GROUPID_GOTO);
+
+    if (menuState.nSelectionViewSize) {
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_GOTO_SELECTION_START, this, SLOT(_goToSelectionStart()),
+                                     (XShortcuts::GROUPID_SELECTION << 8) | XShortcuts::GROUPID_GOTO);
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_GOTO_SELECTION_END, this, SLOT(_goToSelectionEnd()),
+                                     (XShortcuts::GROUPID_SELECTION << 8) | XShortcuts::GROUPID_GOTO);
+    }
+
+    getShortcuts()->_addMenuItem_Checked(&listResults, X_ID_HEX_MULTISEARCH, this, SLOT(_multisearch()), XShortcuts::GROUPID_NONE,
+                                         getViewWidgetState(VIEWWIDGET_MULTISEARCH));
+
+    if (menuState.nSelectionViewSize) {
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_DUMPTOFILE, this, SLOT(_dumpToFileSlot()), XShortcuts::GROUPID_NONE);
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_SIGNATURE, this, SLOT(_hexSignatureSlot()), XShortcuts::GROUPID_NONE);
+    }
+
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_FIND_STRING, this, SLOT(_findStringSlot()), XShortcuts::GROUPID_FIND);
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_FIND_SIGNATURE, this, SLOT(_findSignatureSlot()), XShortcuts::GROUPID_FIND);
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_FIND_VALUE, this, SLOT(_findValueSlot()), XShortcuts::GROUPID_FIND);
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_FIND_NEXT, this, SLOT(_findNextSlot()), XShortcuts::GROUPID_FIND);
+
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_SELECT_ALL, this, SLOT(_selectAllSlot()), XShortcuts::GROUPID_SELECT);
+
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_COPY_OFFSET, this, SLOT(_copyOffsetSlot()), XShortcuts::GROUPID_COPY);
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_COPY_ADDRESS, this, SLOT(_copyAddressSlot()), XShortcuts::GROUPID_COPY);
+    getShortcuts()->_addMenuSeparator(&listResults, XShortcuts::GROUPID_COPY);
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_COPY_DATA, this, SLOT(_copyDataSlot()), XShortcuts::GROUPID_COPY);
+
+    getShortcuts()->_addMenuItem_Checked(&listResults, X_ID_HEX_STRINGS, this, SLOT(_strings()), XShortcuts::GROUPID_NONE, getViewWidgetState(VIEWWIDGET_STRINGS));
+    getShortcuts()->_addMenuItem_Checked(&listResults, X_ID_HEX_VISUALIZATION, this, SLOT(_visualization()), XShortcuts::GROUPID_NONE,
+                                         getViewWidgetState(VIEWWIDGET_VISUALIZATION));
+
+    getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_BOOKMARKS_NEW, this, SLOT(_bookmarkNew()), XShortcuts::GROUPID_BOOKMARKS);
+    getShortcuts()->_addMenuItem_Checked(&listResults, X_ID_HEX_BOOKMARKS_LIST, this, SLOT(_bookmarkList()), XShortcuts::GROUPID_BOOKMARKS,
+                                         getViewWidgetState(VIEWWIDGET_BOOKMARKS));
+
+    if (getBinaryView()->getOptions()->bMenu_Disasm) {
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_FOLLOWIN_DISASM, this, SLOT(_disasmSlot()), XShortcuts::GROUPID_FOLLOWIN);
+    }
+
+    if (getBinaryView()->getOptions()->bMenu_MemoryMap) {
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_FOLLOWIN_MEMORYMAP, this, SLOT(_memoryMapSlot()), XShortcuts::GROUPID_FOLLOWIN);
+    }
+
+    if (getBinaryView()->getOptions()->bMenu_MainHex) {
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_FOLLOWIN_HEX, this, SLOT(_mainHexSlot()), XShortcuts::GROUPID_FOLLOWIN);
+    }
+
+    if (!isReadonly()) {
+        if (menuState.nSelectionViewSize) {
+            getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_EDIT_HEX, this, SLOT(_editHex()), XShortcuts::GROUPID_EDIT);
+        }
+        getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_EDIT_PATCH, this, SLOT(_editPatch()), XShortcuts::GROUPID_EDIT);
+
+        if (XBinary::isResizeEnable(getDevice())) {
+            getShortcuts()->_addMenuSeparator(&listResults, XShortcuts::GROUPID_EDIT);
+            getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_EDIT_REMOVE, this, SLOT(_editRemove()), XShortcuts::GROUPID_EDIT);
+            getShortcuts()->_addMenuItem(&listResults, X_ID_HEX_EDIT_RESIZE, this, SLOT(_editResize()), XShortcuts::GROUPID_EDIT);
+        }
+    }
+
+    return listResults;
+}
+
+XHexView::SHOWRECORD XHexView::_getShowRecordByViewPos(qint64 nOffset)
+{
+    SHOWRECORD result = {};
+
+    qint32 nNumberOfRecords = m_listShowRecords.count();
+
+    for (qint32 i = 0; i < nNumberOfRecords; i++) {
+        if ((m_listShowRecords.at(i).nViewPos != -1) && (m_listShowRecords.at(i).nViewPos <= nOffset) &&
+            (nOffset < (m_listShowRecords.at(i).nViewPos + m_listShowRecords.at(i).nSize))) {
+            result = m_listShowRecords.at(i);
+            break;
+        }
+    }
+
+    return result;
+}
+
+XAbstractTableView::OS XHexView::cursorPositionToOS(const XAbstractTableView::CURSOR_POSITION &cursorPosition)
+{
+    OS osResult = {};
+
+    osResult.nViewPos = -1;
+
+    if ((cursorPosition.bIsValid) && (cursorPosition.ptype == PT_CELL)) {
+        XVPOS nBlockViewPos = getViewPosStart() + (cursorPosition.nRow * m_nBytesProLine);
+
+        if (cursorPosition.nColumn == COLUMN_LOCATION) {
+            osResult.nViewPos = nBlockViewPos;
+            //            osResult.nSize=g_nPieceSize;
+            osResult.nSize = 1;
+        } else if (cursorPosition.nColumn == COLUMN_ELEMENTS) {
+            osResult.nViewPos = nBlockViewPos + ((cursorPosition.nAreaLeft - getSideDelta() - getCharWidth()) / (getCharWidth() * m_nPrintsProElement + getSideDelta())) *
+                                                    m_nElementByteSize;
+            //            osResult.nSize=g_nPieceSize;
+            osResult.nSize = 1;
+        } else if (cursorPosition.nColumn == COLUMN_SYMBOLS) {
+            osResult.nViewPos = nBlockViewPos + ((cursorPosition.nAreaLeft - getSideDelta() - getCharWidth()) / getCharWidth()) * m_nSymbolByteSize;
+            //            osResult.nSize=g_nPieceSize;
+            osResult.nSize = 1;
+        }
+
+        //        osResult.nOffset=S_ALIGN_DOWN(osResult.nOffset,g_nPieceSize);
+
+        if (isViewPosValid(osResult.nViewPos)) {
+            SHOWRECORD showRecord = _getShowRecordByViewPos(osResult.nViewPos);
+
+            if (showRecord.nSize) {
+                osResult.nViewPos = showRecord.nViewPos;
+                osResult.nSize = showRecord.nSize;
+            }
+        } else {
+            osResult.nViewPos = getBinaryView()->getViewSize();  // TODO Check
+            osResult.nSize = 0;
+        }
+
+        //        qDebug("nBlockOffset %x",nBlockOffset);
+        //        qDebug("cursorPosition.nCellLeft %x",cursorPosition.nCellLeft);
+        //        qDebug("getCharWidth() %x",getCharWidth());
+        //        qDebug("nOffset %x",osResult.nOffset);
+    } else if ((cursorPosition.bIsValid) && (cursorPosition.ptype == PT_MAP)) {
+        osResult.nViewPos = XBinary::align_down((getBinaryView()->getViewSize() * cursorPosition.nPercentage) / getMapCount(), m_nBytesProLine);
+        osResult.nSize = 0;
+    }
+    return osResult;
+}
+
+void XHexView::updateData()
+{
+    QIODevice *_pDevice = getDevice();
+
+    if (_pDevice) {
+        // Update cursor position
+        XVPOS nDataBlockStartViewPos = getViewPosStart();  // TODO Check
+
+        //        qint64 nCursorOffset = nBlockStartLine + getCursorDelta();
+
+        //        if (nCursorOffset >= getViewSize()) {
+        //            nCursorOffset = getViewSize() - 1;
+        //        }
+
+        //        setCursorViewPos(nCursorOffset);
+
+        XBinary::MODE mode = XBinary::getWidthModeFromByteSize(m_nAddressWidth);
+
+        m_listLocationRecords.clear();
+        m_listShowRecords.clear();
+
+        qint32 nDataBlockSize = m_nBytesProLine * getLinesProPage();
+
+        nDataBlockSize = qMin(nDataBlockSize, (qint32)(getBinaryView()->getViewSize() - nDataBlockStartViewPos));
+
+        m_listHighlightsRegion.clear();
+        if (getXInfoDB()) {
+            QVector<XInfoDB::BOOKMARKRECORD> listBookMarks = getXInfoDB()->getBookmarkRecords(nDataBlockStartViewPos, XBinary::LT_OFFSET, nDataBlockSize);
+            m_listHighlightsRegion.append(_convertBookmarksToHighlightRegion(&listBookMarks));
+        }
+
+        qint64 nDeviceOffset = getBinaryView()->viewPosToDeviceOffset(nDataBlockStartViewPos);
+
+        m_baDataBuffer = read_array(nDeviceOffset, nDataBlockSize);
+        // QList<QChar> listElements = getStringBuffer(&m_baDataBuffer);
+
+        // qint32 nNumberOfElements = listElements.count();
+
+        m_nDataBlockSize = m_baDataBuffer.size();
+
+        if (m_nDataBlockSize) {
+            QString sDataHexBuffer;
+            QString sANSI;
+
+            if ((m_mode == ELEMENT_MODE_HEX) || (m_mode == ELEMENT_MODE_BYTE)) {
+                sDataHexBuffer = QByteArray(m_baDataBuffer.toHex());
+            }
+
+            if (m_sCodePage.isEmpty()) {
+                sANSI = XBinary::dataToString(m_baDataBuffer, XBinary::DSMODE_NOPRINT_TO_DOT);
+            }
+
+            // Locations
+            for (qint32 i = 0; i < m_nDataBlockSize; i += m_nBytesProLine) {
+                XADDR nCurrentLocation = 0;
+
+                LOCATIONRECORD record = {};
+                record.nViewPos = i + nDataBlockStartViewPos;
+
+                if (getlocationMode() == XBinaryView::LOCMODE_THIS) {
+                    nCurrentLocation = record.nViewPos;
+
+                    qint64 nDelta = (qint64)nCurrentLocation - (qint64)m_nThisBase;
+
+                    record.sLocation = XBinary::thisToString(nDelta, getLocationBase());
+                } else {
+                    if (getlocationMode() == XBinaryView::LOCMODE_ADDRESS) {
+                        nCurrentLocation = getBinaryView()->viewPosToAddress(record.nViewPos);
+                    } else if (getlocationMode() == XBinaryView::LOCMODE_OFFSET) {
+                        nCurrentLocation = getBinaryView()->viewPosToDeviceOffset(record.nViewPos);
+                    }
+
+                    if (getLocationBase() == 16) {
+                        if (m_bIsLocationColon) {
+                            record.sLocation = XBinary::valueToHexColon(mode, nCurrentLocation);
+                        } else {
+                            record.sLocation = XBinary::valueToHex(mode, nCurrentLocation);
+                        }
+                    } else {
+                        record.sLocation = QString("%1").arg(nCurrentLocation, m_nAddressWidth, getLocationBase(), QChar('0'));
+                    }
+                }
+
+                m_listLocationRecords.append(record);
+            }
+
+            // Elements
+            qint32 nMaxBytes = 1;
+
+            if (m_mode == ELEMENT_MODE_HEX) {
+                nMaxBytes = 8;  // TODO compare with XBinary::getHexSize
+            } else {
+                nMaxBytes = m_nElementByteSize;
+            }
+
+            char *pData = m_baDataBuffer.data();
+            qint32 nCurrentRowViewPos = 0;
+            qint32 nRow = 0;
+            bool bFirst = true;
+
+            for (qint32 i = 0; i < m_nDataBlockSize;) {
+                SHOWRECORD record = {};
+
+                record.nSize = m_nElementByteSize;
+                record.nViewPos = nDataBlockStartViewPos + i;
+                record.nRowViewPos = nCurrentRowViewPos;
+                record.nRow = nRow;
+
+                if (bFirst) {
+                    record.bFirstRowSymbol = true;
+                    bFirst = false;
+                }
+
+                if (m_sCodePage.isEmpty()) {
+                    record.sSymbol = sANSI.mid(i, m_nElementByteSize);
+                } else {
+#if (QT_VERSION_MAJOR < 6) || defined(QT_CORE5COMPAT_LIB)
+                    if (m_pCodec) {
+                        qint32 nJmax = qMin(m_nDataBlockSize - i, nMaxBytes);
+
+                        for (int j = record.nSize; j <= nJmax; j++) {
+                            QTextCodec::ConverterState converterState = {};
+                            record.nSize = j;
+                            record.sSymbol = m_pCodec->toUnicode(pData + i, record.nSize, &converterState);
+                            record.bIsSymbolError = (converterState.remainingChars > 0);
+
+                            if (converterState.remainingChars == 0) {
+                                break;
+                            }
+                        }
+                    }
+#endif
+                }
+
+                record.sElement = _formatElement(pData, i, record.nSize, sDataHexBuffer);
+
+                // if (i < nNumberOfElements) {
+                //     record.sSymbol = listElements.at(i);
+                // }
+
+                if (record.nSize == 1) {
+                    record.bIsBold = (m_baDataBuffer.at(i) != 0);  // TODO optimize !!! TODO Different rules
+                }
+
+                QList<HIGHLIGHTREGION> listHighLightRegions = getHighlightRegion(&m_listHighlightsRegion, nDataBlockStartViewPos + i, XBinary::LT_OFFSET);
+
+                if (listHighLightRegions.count()) {
+                    record.bIsHighlighted = true;
+                    record.colBackground = listHighLightRegions.at(0).colBackground;
+                    record.colBackgroundSelected = listHighLightRegions.at(0).colBackgroundSelected;
+                } else {
+                    record.colBackgroundSelected = getColor(TCLOLOR_SELECTED);
+                }
+
+                //                record.bIsSelected = isViewPosSelected(nDataBlockStartOffset + i);
+
+                i += record.nSize;
+                nCurrentRowViewPos += record.nSize;
+
+                if (nCurrentRowViewPos >= m_nBytesProLine) {
+                    nCurrentRowViewPos -= m_nBytesProLine;
+                    nRow++;
+                    record.bLastRowSymbol = true;
+                    bFirst = true;
+                } else if (nCurrentRowViewPos >= getBinaryView()->getViewSize()) {
+                    record.bLastRowSymbol = true;
+                }
+
+                m_listShowRecords.append(record);
+            }
+        } else {
+            m_baDataBuffer.clear();
+        }
+
+        setCurrentBlock(nDataBlockStartViewPos, m_nDataBlockSize);
+
+        m_pixmapCache.clear();
+    }
+}
+
+void XHexView::paintMap(QPainter *pPainter, qint32 nLeft, qint32 nTop, qint32 nWidth, qint32 nHeight)
+{
+    pPainter->save();
+
+    QString sKey = "Map_0_0";
+    sKey += QString("_%1").arg(nWidth);
+    sKey += QString("_%1").arg(nHeight);
+
+    QPixmap _pixmap(0, 0);
+
+    if (m_pixmapCache.find(sKey, &_pixmap)) {
+        //        if (false) {
+        pPainter->drawPixmap(nLeft, nTop, nWidth, nHeight, _pixmap);
+    } else {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+        qreal ratio = QPaintDevice::devicePixelRatioF();
+#else
+        qreal ratio = QPaintDevice::devicePixelRatio();
+#endif
+        // qint32 nPartCount = qMin(nHeight, (qint32)nHeight);
+        // qint32 nPartSize = getDevice()->size() / nPartCount;
+
+        // XBinary::_MEMORY_MAP *pMemoryMap = getMemoryMap();
+
+        // TODO memoryMap tooltips
+
+        QPixmap pixmap(nWidth * ratio, nHeight * ratio);
+        pixmap.setDevicePixelRatio(ratio);
+        pixmap.fill(Qt::transparent);
+
+        QPainter painterPixmap(&pixmap);
+        // painterPixmap.fillRect(0, 0, nWidth, nHeight, QBrush(Qt::darkYellow));
+
+        m_pixmapCache.insert(sKey, pixmap);
+
+        pPainter->drawPixmap(nLeft, nTop, nWidth, nHeight, pixmap);
+    }
+
+    pPainter->restore();
+}
+
+void XHexView::paintCell(QPainter *pPainter, qint32 nRow, qint32 nColumn, qint32 nLeft, qint32 nTop, qint32 nWidth, qint32 nHeight)
+{
+    // #ifdef QT_DEBUG
+    //     QElapsedTimer timer;
+    //     timer.start();
+    // #endif
+    //     g_pPainterText->drawRect(nLeft,nTop,nWidth,nHeight);
+
+    if (nColumn == COLUMN_LOCATION) {
+        //        if (nRow < m_listLocationRecords.count()) {
+        //            QRect rectSymbol;
+
+        //            rectSymbol.setLeft(nLeft + getCharWidth());
+        //            rectSymbol.setTop(nTop + getLineDelta());
+        //            rectSymbol.setWidth(nWidth);
+        //            rectSymbol.setHeight(nHeight - getLineDelta());
+
+        //            //            pPainter->save();
+        //            //            pPainter->setPen(viewport()->palette().color(QPalette::Dark));
+        //            pPainter->drawText(rectSymbol, m_listLocationRecords.at(nRow).sLocation);  // TODO Text Optional
+        //                                                                              //            pPainter->restore();
+        //        }
+    } else if ((nColumn == COLUMN_ELEMENTS) || (nColumn == COLUMN_SYMBOLS)) {
+        qint32 nNumberOfShowRecords = m_listShowRecords.count();
+
+        QFont fontBold = pPainter->font();
+        fontBold.setBold(true);
+
+        for (qint32 i = 0; i < nNumberOfShowRecords; i++) {
+            if (m_listShowRecords.at(i).nRow < nRow) {
+                continue;  // Skip records before our row
+            }
+
+            if (m_listShowRecords.at(i).nRow > nRow) {
+                break;  // Past our row, no more matches
+            }
+
+            SHOWRECORD record = m_listShowRecords.at(i);
+
+            bool bIsSelected = isViewPosSelected(record.nViewPos);
+
+            if (!bIsSelected) {
+                continue;
+            }
+
+            bool bIsSelectedPrev = false;
+            bool bIsSelectedNext = false;
+
+            if (i - 1 >= 0) {
+                bIsSelectedPrev = isViewPosSelected(m_listShowRecords.at(i - 1).nViewPos);
+            }
+
+            if (i + 1 < nNumberOfShowRecords) {
+                bIsSelectedNext = isViewPosSelected(m_listShowRecords.at(i + 1).nViewPos);
+            }
+
+            QRectF rectSymbol;
+
+            if (nColumn == COLUMN_ELEMENTS) {
+                qint32 _nRowOffset = record.nRowViewPos / m_nElementByteSize;
+
+                rectSymbol.setLeft(nLeft + getCharWidth() + (_nRowOffset * (m_nPrintsProElement * getCharWidth() + getSideDelta())));
+                rectSymbol.setTop(nTop + getLineDelta());
+                rectSymbol.setHeight(nHeight - getLineDelta());
+
+                int nSelWidth = (record.nSize / m_nElementByteSize) * (m_nPrintsProElement * getCharWidth() + getSideDelta());
+
+                if ((record.bLastRowSymbol) || (!bIsSelectedNext)) {
+                    nSelWidth -= getSideDelta();
+                }
+
+                rectSymbol.setWidth(nSelWidth);
+            } else if (nColumn == COLUMN_SYMBOLS) {
+                rectSymbol.setLeft(nLeft + (record.nRowViewPos + 1) * getCharWidth());
+                rectSymbol.setTop(nTop + getLineDelta());
+                rectSymbol.setWidth(getCharWidth() * (record.nSize / m_nSymbolByteSize));
+                rectSymbol.setHeight(nHeight - getLineDelta());
+            }
+
+            if (rectSymbol.left() >= (nLeft + nWidth)) {
+                break;  // Off-screen to the right, skip remaining
+            }
+
+            if (record.bIsBold) {
+                pPainter->save();
+                pPainter->setFont(fontBold);
+            }
+
+            if (record.bIsSymbolError) {
+                pPainter->fillRect(rectSymbol, QBrush(Qt::red));
+            } else {
+                pPainter->fillRect(rectSymbol, record.colBackgroundSelected);
+            }
+
+            // Draw selection border lines
+            bool bTop = !isViewPosSelected(record.nViewPos - m_nBytesProLine);
+            bool bLeft = (record.bFirstRowSymbol) || (!bIsSelectedPrev);
+            bool bBottom = !isViewPosSelected(record.nViewPos + m_nBytesProLine);
+            bool bRight = (record.bLastRowSymbol) || (!bIsSelectedNext);
+
+            if (bTop) {
+                pPainter->drawLine(rectSymbol.left(), rectSymbol.top(), rectSymbol.right(), rectSymbol.top());
+            }
+
+            if (bLeft) {
+                pPainter->drawLine(rectSymbol.left(), rectSymbol.top(), rectSymbol.left(), rectSymbol.bottom());
+            }
+
+            if (bBottom) {
+                pPainter->drawLine(rectSymbol.left(), rectSymbol.bottom(), rectSymbol.right(), rectSymbol.bottom());
+            }
+
+            if (bRight) {
+                pPainter->drawLine(rectSymbol.right(), rectSymbol.top(), rectSymbol.right(), rectSymbol.bottom());
+            }
+
+            if (record.bIsBold) {
+                pPainter->restore();
+            }
+        }
+    }
+}
+
+void XHexView::paintColumn(QPainter *pPainter, qint32 nColumn, qint32 nLeft, qint32 nTop, qint32 nWidth, qint32 nHeight)
+{
+#ifdef QT_DEBUG
+//    qDebug("XHexView::paintColumn");
+//    QElapsedTimer timer;
+//    timer.start();
+#endif
+
+    QString sKey;
+
+    if (nColumn == COLUMN_LOCATION) {
+        sKey = QString("location");
+    } else if (nColumn == COLUMN_ELEMENTS) {
+        sKey = QString("elements");
+    } else if (nColumn == COLUMN_SYMBOLS) {
+        sKey = QString("symbols");
+    }
+
+    if (!sKey.isEmpty()) {
+        sKey += QString("_%1").arg(getViewPosStart());
+        sKey += QString("_%1").arg(getBinaryView()->getViewSize());
+        sKey += QString("_%1").arg(nWidth);
+        sKey += QString("_%1").arg(nHeight);
+
+        QPixmap _pixmap(0, 0);
+
+        if (m_pixmapCache.find(sKey, &_pixmap)) {
+            // qDebug("m_pixmapCache");
+            pPainter->drawPixmap(nLeft, nTop, nWidth, nHeight, _pixmap);
+        } else {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+            qreal ratio = QPaintDevice::devicePixelRatioF();
+#else
+            qreal ratio = QPaintDevice::devicePixelRatio();
+#endif
+            QPixmap pixmap(nWidth * ratio, nHeight * ratio);
+            pixmap.setDevicePixelRatio(ratio);
+            pixmap.fill(Qt::transparent);
+
+            QPainter painterPixmap(&pixmap);
+            painterPixmap.setFont(pPainter->font());
+            painterPixmap.setBackgroundMode(Qt::TransparentMode);
+
+            if (nColumn == COLUMN_LOCATION) {
+                qint32 nNumberOfRows = m_listLocationRecords.count();
+
+                for (qint32 i = 0; i < nNumberOfRows; i++) {
+                    QRectF rectSymbol;
+                    rectSymbol.setLeft(getCharWidth());
+                    rectSymbol.setTop(getLineHeight() * i + getLineDelta());
+                    rectSymbol.setWidth(nWidth);
+                    rectSymbol.setHeight(getLineHeight() - getLineDelta());
+
+                    painterPixmap.drawText(rectSymbol, m_listLocationRecords.at(i).sLocation);  // TODO Text Optional pPainter->restore();
+                }
+            } else if ((nColumn == COLUMN_ELEMENTS) || (nColumn == COLUMN_SYMBOLS)) {
+                QFont fontBold = painterPixmap.font();
+                fontBold.setBold(true);
+
+                qint32 nNumberOfShowRecords = m_listShowRecords.count();
+
+                for (qint32 i = 0; i < nNumberOfShowRecords; i++) {
+                    SHOWRECORD record = m_listShowRecords.at(i);
+
+                    bool bIsHighlighted = m_listShowRecords.at(i).bIsHighlighted;
+                    bool bIsHighlightedNext = false;
+
+                    if (i + 1 < nNumberOfShowRecords) {
+                        bIsHighlightedNext = m_listShowRecords.at(i + 1).bIsHighlighted;
+                    }
+
+                    QRectF rectSymbol;
+
+                    if (nColumn == COLUMN_ELEMENTS) {
+                        qint32 _nRowOffset = record.nRowViewPos / m_nElementByteSize;
+
+                        rectSymbol.setLeft(getCharWidth() + (_nRowOffset * (m_nPrintsProElement * getCharWidth() + getSideDelta())));
+                        rectSymbol.setTop(getLineHeight() * record.nRow + getLineDelta());
+                        rectSymbol.setHeight(getLineHeight() - getLineDelta());
+
+                        int nWidth = (record.nSize / m_nElementByteSize) * (m_nPrintsProElement * getCharWidth() + getSideDelta());
+
+                        if ((record.bLastRowSymbol) || (bIsHighlighted && (!bIsHighlightedNext))) {
+                            nWidth -= getSideDelta();
+                        }
+
+                        rectSymbol.setWidth(nWidth);
+                    } else if (nColumn == COLUMN_SYMBOLS) {
+                        rectSymbol.setLeft((record.nRowViewPos + 1) * getCharWidth());
+                        rectSymbol.setTop(getLineHeight() * record.nRow + getLineDelta());
+                        rectSymbol.setWidth(getCharWidth() * (record.nSize / m_nSymbolByteSize));
+                        rectSymbol.setHeight(getLineHeight() - getLineDelta());
+                    }
+
+                    if (record.bIsBold) {
+                        painterPixmap.save();
+                        painterPixmap.setFont(fontBold);
+                    }
+
+                    QString sSymbol;
+
+                    if (nColumn == COLUMN_ELEMENTS) {
+                        sSymbol = record.sElement;
+                    } else if (nColumn == COLUMN_SYMBOLS) {
+                        sSymbol = record.sSymbol;
+                    }
+
+                    if (record.bIsSymbolError) {
+                        painterPixmap.fillRect(rectSymbol, QBrush(Qt::red));  // TODO
+                    } else if (bIsHighlighted) {
+                        painterPixmap.fillRect(rectSymbol, record.colBackground);
+                    }
+
+                    if (nColumn == COLUMN_ELEMENTS) {
+                        painterPixmap.drawText(rectSymbol, sSymbol, Qt::AlignVCenter | Qt::AlignHCenter);
+                    } else if (nColumn == COLUMN_SYMBOLS) {
+                        if (sSymbol != "") {
+                            painterPixmap.drawText(rectSymbol, sSymbol);
+                        }
+                    }
+
+                    if (record.bIsBold) {
+                        painterPixmap.restore();
+                    }
+                }
+            }
+
+            m_pixmapCache.insert(sKey, pixmap);
+
+            pPainter->drawPixmap(nLeft, nTop, nWidth, nHeight, pixmap);
+        }
+    }
+
+#ifdef QT_DEBUG
+//    qDebug("Elapsed XHexView::paintColumn %lld", timer.elapsed());
+#endif
+}
+
+void XHexView::paintTitle(QPainter *pPainter, qint32 nColumn, qint32 nLeft, qint32 nTop, qint32 nWidth, qint32 nHeight, const QString &sTitle)
+{
+    if (nColumn == COLUMN_ELEMENTS) {
+        for (qint32 i = 0; i < m_nBytesProLine / m_nElementByteSize; i++) {
+            QString sSymbol = QString("%1").arg(i * m_nElementByteSize, 2, getLocationBase(), QChar('0'));
+
+            QRectF rectSymbol;
+
+            rectSymbol.setLeft(nLeft + getCharWidth() + (i * m_nPrintsProElement) * getCharWidth() + i * getSideDelta());
+            rectSymbol.setTop(nTop);
+            rectSymbol.setWidth(m_nPrintsProElement * getCharWidth() + getSideDelta());
+            rectSymbol.setHeight(nHeight);
+
+            if ((rectSymbol.left()) < (nLeft + nWidth)) {
+                pPainter->drawText(rectSymbol, Qt::AlignVCenter | Qt::AlignHCenter, sSymbol);
+            }
+        }
+    } else {
+        XAbstractTableView::paintTitle(pPainter, nColumn, nLeft, nTop, nWidth, nHeight, sTitle);
+    }
+}
+
+void XHexView::wheelEvent(QWheelEvent *pEvent)
+{
+    if ((m_nViewStartDelta) && (pEvent->angleDelta().y() > 0)) {
+        if (getCurrentViewPosFromScroll() == m_nViewStartDelta) {
+            setCurrentViewPosToScroll(0);
+            adjust(true);
+        }
+    }
+
+    XAbstractTableView::wheelEvent(pEvent);
+}
+
+void XHexView::keyPressEvent(QKeyEvent *pEvent)
+{
+    // Move commands
+    if (pEvent->matches(QKeySequence::MoveToNextChar) || pEvent->matches(QKeySequence::MoveToPreviousChar) || pEvent->matches(QKeySequence::MoveToNextLine) ||
+        pEvent->matches(QKeySequence::MoveToPreviousLine) || pEvent->matches(QKeySequence::MoveToStartOfLine) || pEvent->matches(QKeySequence::MoveToEndOfLine) ||
+        pEvent->matches(QKeySequence::MoveToNextPage) || pEvent->matches(QKeySequence::MoveToPreviousPage) || pEvent->matches(QKeySequence::MoveToStartOfDocument) ||
+        pEvent->matches(QKeySequence::MoveToEndOfDocument)) {
+        STATE state = getState();
+        XVPOS nViewStart = getViewPosStart();
+
+        state.nSelectionViewSize = 1;
+
+        if (pEvent->matches(QKeySequence::MoveToNextChar)) {
+            state.nSelectionViewPos += m_nElementByteSize;  // TODO fix UTF8
+        } else if (pEvent->matches(QKeySequence::MoveToPreviousChar)) {
+            state.nSelectionViewPos -= m_nElementByteSize;
+        } else if (pEvent->matches(QKeySequence::MoveToNextLine)) {
+            state.nSelectionViewPos += m_nBytesProLine;
+        } else if (pEvent->matches(QKeySequence::MoveToPreviousLine)) {
+            state.nSelectionViewPos -= m_nBytesProLine;
+        } else if (pEvent->matches(QKeySequence::MoveToStartOfLine)) {
+            state.nSelectionViewPos = XBinary::align_down(state.nSelectionViewPos, m_nBytesProLine);
+        } else if (pEvent->matches(QKeySequence::MoveToEndOfLine)) {
+            state.nSelectionViewPos = XBinary::align_down(state.nSelectionViewPos, m_nBytesProLine) + m_nBytesProLine - m_nElementByteSize;
+        }
+
+        if ((state.nSelectionViewPos < 0) || (pEvent->matches(QKeySequence::MoveToStartOfDocument))) {
+            state.nSelectionViewPos = 0;
+            m_nViewStartDelta = 0;
+        }
+
+        if ((state.nSelectionViewPos >= getBinaryView()->getViewSize()) || (pEvent->matches(QKeySequence::MoveToEndOfDocument))) {
+            state.nSelectionViewPos = getBinaryView()->getViewSize() - 1;
+            m_nViewStartDelta = 0;
+        }
+
+        if (isViewPosValid(state.nSelectionViewPos)) {
+            SHOWRECORD showRecord = _getShowRecordByViewPos(state.nSelectionViewPos);
+
+            if (showRecord.nSize) {
+                state.nSelectionViewPos = showRecord.nViewPos;
+                state.nSelectionViewSize = showRecord.nSize;
+            }
+        }
+
+        setState(state);
+
+        if (pEvent->matches(QKeySequence::MoveToNextChar) || pEvent->matches(QKeySequence::MoveToPreviousChar) || pEvent->matches(QKeySequence::MoveToNextLine) ||
+            pEvent->matches(QKeySequence::MoveToPreviousLine)) {
+            qint64 nRelOffset = state.nSelectionViewPos - nViewStart;
+
+            if (nRelOffset >= m_nBytesProLine * getLinesProPage()) {
+                _goToViewPos(nViewStart + m_nBytesProLine, true);
+            } else if (nRelOffset < 0) {
+                if (!_goToViewPos(nViewStart - m_nBytesProLine, true)) {
+                    _goToViewPos(0);
+                }
+            }
+        } else if (pEvent->matches(QKeySequence::MoveToNextPage) || pEvent->matches(QKeySequence::MoveToPreviousPage)) {
+            if (pEvent->matches(QKeySequence::MoveToNextPage)) {
+                _goToViewPos(nViewStart + m_nBytesProLine * getLinesProPage());
+            } else if (pEvent->matches(QKeySequence::MoveToPreviousPage)) {
+                _goToViewPos(nViewStart - m_nBytesProLine * getLinesProPage());
+            }
+        } else if (pEvent->matches(QKeySequence::MoveToStartOfDocument) || pEvent->matches(QKeySequence::MoveToEndOfDocument))  // TODO
+        {
+            _goToViewPos(state.nSelectionViewPos);
+        }
+
+        adjust();
+        viewport()->update();
+    }
+    //    else if(pEvent->matches(QKeySequence::SelectAll))
+    //    {
+    //        _selectAllSlot();
+    //    }
+    else {
+        XAbstractTableView::keyPressEvent(pEvent);
+    }
+}
+
+XVPOS XHexView::getCurrentViewPosFromScroll()
+{
+    XVPOS nResult = 0;
+
+    qint32 nValue = verticalScrollBar()->value();
+
+    qint64 nMaxValue = getMaxScrollValue() * m_nBytesProLine;
+
+    if (getBinaryView()->getViewSize() > nMaxValue) {
+        if (nValue == getMaxScrollValue()) {
+            nResult = getBinaryView()->getViewSize() - m_nBytesProLine;
+        } else {
+            nResult = ((double)nValue / (double)getMaxScrollValue()) * getBinaryView()->getViewSize() + m_nViewStartDelta;
+        }
+    } else {
+        nResult = (XVPOS)nValue * m_nBytesProLine + m_nViewStartDelta;
+    }
+
+    return nResult;
+}
+
+void XHexView::setCurrentViewPosToScroll(XVPOS nOffset)
+{
+    setViewPosStart(nOffset);
+    m_nViewStartDelta = (nOffset) % m_nBytesProLine;
+
+    qint32 nValue = 0;
+
+    if (getBinaryView()->getViewSize() > (getMaxScrollValue() * m_nBytesProLine)) {
+        if (nOffset == getBinaryView()->getViewSize() - m_nBytesProLine) {
+            nValue = getMaxScrollValue();
+        } else {
+            nValue = ((double)(nOffset - m_nViewStartDelta) / ((double)getBinaryView()->getViewSize())) * (double)getMaxScrollValue();
+        }
+    } else {
+        nValue = (nOffset) / m_nBytesProLine;
+    }
+
+    {
+        const bool bBlocked1 = verticalScrollBar()->blockSignals(true);
+
+        verticalScrollBar()->setValue(nValue);
+        _verticalScroll();
+
+        verticalScrollBar()->blockSignals(bBlocked1);
+    }
+}
+
+void XHexView::adjustColumns()
+{
+    const QFontMetricsF fm(getTextFont());
+
+    // if (XBinary::getWidthModeFromSize(getStartLocation() + getViewSize()) == XBinary::MODE_64) {
+    if (XBinary::getWidthModeFromSize(getBinaryView()->getViewSize()) == XBinary::MODE_64) {
+        m_nAddressWidth = 16;
+        setColumnWidth(COLUMN_LOCATION, 2 * getCharWidth() + fm.boundingRect("00000000:00000000").width());
+    } else {
+        m_nAddressWidth = 8;
+        setColumnWidth(COLUMN_LOCATION, 2 * getCharWidth() + fm.boundingRect("0000:0000").width());
+    }
+
+    qint32 nNumberOfElements = m_nBytesProLine / m_nElementByteSize;
+    qint32 nNumberOfSymbols = m_nBytesProLine / m_nSymbolByteSize;
+
+    setColumnWidth(COLUMN_ELEMENTS, nNumberOfElements * m_nPrintsProElement * getCharWidth() + 2 * getCharWidth() + getSideDelta() * nNumberOfElements);
+    setColumnWidth(COLUMN_SYMBOLS, (nNumberOfSymbols + 2) * getCharWidth());
+}
+
+void XHexView::adjustHeader()
+{
+    if (getlocationMode() == XBinaryView::LOCMODE_ADDRESS) {
+        setColumnTitle(COLUMN_LOCATION, tr("Address"));
+    } else if ((getlocationMode() == XBinaryView::LOCMODE_OFFSET) || (getlocationMode() == XBinaryView::LOCMODE_THIS)) {
+        setColumnTitle(COLUMN_LOCATION, tr("Offset"));
+    }
+}
+
+void XHexView::_headerClicked(qint32 nColumn)
+{
+    if (nColumn == COLUMN_LOCATION) {
+        // // TODO Context Menu with
+        // if (getAddressMode() == LOCMODE_ADDRESS) {
+        //     setColumnTitle(COLUMN_ADDRESS, tr("Offset"));
+        //     setAddressMode(LOCMODE_OFFSET);
+        // } else if ((getAddressMode() == LOCMODE_OFFSET) || (getAddressMode() == LOCMODE_THIS)) {
+        //     setColumnTitle(COLUMN_ADDRESS, tr("Address"));
+        //     setAddressMode(LOCMODE_ADDRESS);
+        // }
+        QMenu contextMenu(this);
+
+        QList<XShortcuts::MENUITEM> listMenuItems;
+
+        {
+            XShortcuts::MENUITEM menuItem = {};
+            menuItem.sText = QString("10");
+            menuItem.pRecv = this;
+            menuItem.pMethod = SLOT(changeLocationBase());
+            menuItem.nSubgroups = XShortcuts::GROUPID_BASE;
+            menuItem.bIsCheckable = true;
+            menuItem.bIsChecked = (getLocationBase() == 10);
+            menuItem.sPropertyName = "base";
+            menuItem.varProperty = 10;
+
+            listMenuItems.append(menuItem);
+        }
+
+        {
+            XShortcuts::MENUITEM menuItem = {};
+            menuItem.sText = QString("16");
+            menuItem.pRecv = this;
+            menuItem.pMethod = SLOT(changeLocationBase());
+            menuItem.nSubgroups = XShortcuts::GROUPID_BASE;
+            menuItem.bIsCheckable = true;
+            menuItem.bIsChecked = (getLocationBase() == 16);
+            menuItem.sPropertyName = "base";
+            menuItem.varProperty = 16;
+
+            listMenuItems.append(menuItem);
+        }
+
+        {
+            XShortcuts::MENUITEM menuItem = {};
+            menuItem.sText = tr("Address");
+            menuItem.pRecv = this;
+            menuItem.pMethod = SLOT(changeLocationMode());
+            menuItem.nSubgroups = XShortcuts::GROUPID_LOCATION;
+            menuItem.bIsCheckable = true;
+            menuItem.bIsChecked = (getlocationMode() == XBinaryView::LOCMODE_ADDRESS);
+            menuItem.sPropertyName = "mode";
+            menuItem.varProperty = XBinaryView::LOCMODE_ADDRESS;
+
+            listMenuItems.append(menuItem);
+        }
+
+        {
+            XShortcuts::MENUITEM menuItem = {};
+            menuItem.sText = tr("Offset");
+            menuItem.pRecv = this;
+            menuItem.pMethod = SLOT(changeLocationMode());
+            menuItem.nSubgroups = XShortcuts::GROUPID_LOCATION;
+            menuItem.bIsCheckable = true;
+            menuItem.bIsChecked = (getlocationMode() == XBinaryView::LOCMODE_OFFSET);
+            menuItem.sPropertyName = "mode";
+            menuItem.varProperty = XBinaryView::LOCMODE_OFFSET;
+
+            listMenuItems.append(menuItem);
+        }
+
+        getShortcuts()->adjustContextMenu(&contextMenu, &listMenuItems);
+
+        contextMenu.exec(QCursor::pos());
+
+        // adjust(true);
+    } else if (nColumn == COLUMN_ELEMENTS) {
+        QMenu contextMenu(this);
+
+        QList<XShortcuts::MENUITEM> listMenuItems;
+
+        _addElementModeMenuItem(&listMenuItems, tr("Hex"), ELEMENT_MODE_HEX);
+        getShortcuts()->_addMenuSeparator(&listMenuItems, XShortcuts::GROUPID_MODE);
+        _addElementModeMenuItem(&listMenuItems, QString("byte"), ELEMENT_MODE_BYTE);
+        _addElementModeMenuItem(&listMenuItems, QString("word"), ELEMENT_MODE_WORD);
+        _addElementModeMenuItem(&listMenuItems, QString("dword"), ELEMENT_MODE_DWORD);
+        _addElementModeMenuItem(&listMenuItems, QString("qword"), ELEMENT_MODE_QWORD);
+        getShortcuts()->_addMenuSeparator(&listMenuItems, XShortcuts::GROUPID_MODE);
+        _addElementModeMenuItem(&listMenuItems, QString("uint8"), ELEMENT_MODE_UINT8);
+        _addElementModeMenuItem(&listMenuItems, QString("int8"), ELEMENT_MODE_INT8);
+        getShortcuts()->_addMenuSeparator(&listMenuItems, XShortcuts::GROUPID_MODE);
+        _addElementModeMenuItem(&listMenuItems, QString("uint16"), ELEMENT_MODE_UINT16);
+        _addElementModeMenuItem(&listMenuItems, QString("int16"), ELEMENT_MODE_INT16);
+        getShortcuts()->_addMenuSeparator(&listMenuItems, XShortcuts::GROUPID_MODE);
+        _addElementModeMenuItem(&listMenuItems, QString("uint32"), ELEMENT_MODE_UINT32);
+        _addElementModeMenuItem(&listMenuItems, QString("int32"), ELEMENT_MODE_INT32);
+        getShortcuts()->_addMenuSeparator(&listMenuItems, XShortcuts::GROUPID_MODE);
+        _addElementModeMenuItem(&listMenuItems, QString("uint64"), ELEMENT_MODE_UINT64);
+        _addElementModeMenuItem(&listMenuItems, QString("int64"), ELEMENT_MODE_INT64);
+
+        _addElementWidthMenuItem(&listMenuItems, 8);
+        _addElementWidthMenuItem(&listMenuItems, 16);
+        _addElementWidthMenuItem(&listMenuItems, 24);
+        _addElementWidthMenuItem(&listMenuItems, 32);
+        _addElementWidthMenuItem(&listMenuItems, 48);
+        _addElementWidthMenuItem(&listMenuItems, 64);
+
+        getShortcuts()->adjustContextMenu(&contextMenu, &listMenuItems);
+
+        contextMenu.exec(QCursor::pos());
+
+    } else if (nColumn == COLUMN_SYMBOLS) {
+#if (QT_VERSION_MAJOR < 6) || defined(QT_CORE5COMPAT_LIB)
+        m_pCodePageMenu->exec(QCursor::pos());
+#endif
+    }
+
+    XAbstractTableView::_headerClicked(nColumn);
+}
+
+void XHexView::_cellDoubleClicked(qint32 nRow, qint32 nColumn)
+{
+    if (nColumn == COLUMN_LOCATION) {
+        setColumnTitle(COLUMN_LOCATION, "");
+        setLocationMode(XBinaryView::LOCMODE_THIS);
+
+        if (nRow < m_listLocationRecords.count()) {
+            m_nThisBase = m_listLocationRecords.at(nRow).nViewPos;
+        }
+
+        adjust(true);
+    }
+}
+
+void XHexView::adjustScrollCount()
+{
+    qint64 nTotalLineCount = getBinaryView()->getViewSize() / m_nBytesProLine;
+
+    if (getBinaryView()->getViewSize() % m_nBytesProLine == 0) {
+        nTotalLineCount--;
+    }
+
+    //    if((getDataSize()>0)&&(getDataSize()<m_nBytesProLine))
+    //    {
+    //        nTotalLineCount=1;
+    //    }
+
+    setTotalScrollCount(nTotalLineCount);
+}
+
+void XHexView::adjustMap()
+{
+    if (isMapEnable()) {
+        if (getDevice()) {
+            qint64 nNumberOfLines = getDevice()->size() / m_nBytesProLine;
+            if (nNumberOfLines > 100) {
+                nNumberOfLines = 100;
+            } else if (nNumberOfLines == 0) {
+                nNumberOfLines = 1;
+            }
+
+            setMapCount((qint32)nNumberOfLines);
+        }
+    }
+}
+
+void XHexView::_disasmSlot()
+{
+    if (getBinaryView()->getOptions()->bMenu_Disasm) {
+        emit followLocation(getDeviceState().nSelectionDeviceOffset, XBinary::LT_OFFSET, 0, XOptions::WIDGETTYPE_DISASM);
+    }
+}
+
+void XHexView::_memoryMapSlot()
+{
+    if (getBinaryView()->getOptions()->bMenu_MemoryMap) {
+        emit followLocation(getDeviceState().nSelectionDeviceOffset, XBinary::LT_OFFSET, 0, XOptions::WIDGETTYPE_MEMORYMAP);
+    }
+}
+
+void XHexView::_mainHexSlot()
+{
+    if (getBinaryView()->getOptions()->bMenu_MainHex) {
+        DEVICESTATE deviceState = getDeviceState();
+        emit followLocation(getDeviceState().nSelectionDeviceOffset, XBinary::LT_OFFSET, deviceState.nSelectionSize, XOptions::WIDGETTYPE_HEX);
+    }
+}
+
+void XHexView::_setCodePage(const QString &sCodePage)
+{
+#if (QT_VERSION_MAJOR < 6) || defined(QT_CORE5COMPAT_LIB)
+    m_sCodePage = sCodePage;
+
+    QString sTitle = tr("Symbols");
+
+    if (!m_sCodePage.isEmpty()) {
+        sTitle = m_sCodePage;
+        m_pCodec = QTextCodec::codecForName(m_sCodePage.toLatin1().data());
+    }
+
+    setColumnTitle(COLUMN_SYMBOLS, sTitle);
+
+    adjust(true);
+#else
+    Q_UNUSED(sCodePage)
+#endif
+}
+
+void XHexView::changeElementWidth()
+{
+    QAction *pAction = qobject_cast<QAction *>(sender());
+
+    if (pAction) {
+        m_nBytesProLine = pAction->property("width").toUInt();
+
+        adjustMap();
+        adjustScrollCount();
+        adjustColumns();
+        adjust(true);
+    }
+}
+
+void XHexView::changeElementMode()
+{
+    QAction *pAction = qobject_cast<QAction *>(sender());
+
+    if (pAction) {
+        ELEMENT_MODE mode = (ELEMENT_MODE)pAction->property("mode").toUInt();
+
+        _setMode(mode);
+
+        adjustColumns();
+        adjust(true);
+    }
+}
+
+void XHexView::_setMode(ELEMENT_MODE mode)
+{
+    m_mode = mode;
+
+    if (mode == ELEMENT_MODE_HEX) {
+        m_nPrintsProElement = 2;
+        m_nElementByteSize = 1;
+    } else if (mode == ELEMENT_MODE_BYTE) {
+        m_nPrintsProElement = 2;
+        m_nElementByteSize = 1;
+    } else if (mode == ELEMENT_MODE_UINT8) {
+        m_nPrintsProElement = 3;
+        m_nElementByteSize = 1;
+    } else if (mode == ELEMENT_MODE_INT8) {
+        m_nPrintsProElement = 4;
+        m_nElementByteSize = 1;
+    } else if (mode == ELEMENT_MODE_WORD) {
+        m_nPrintsProElement = 4;
+        m_nElementByteSize = 2;
+    } else if (mode == ELEMENT_MODE_UINT16) {
+        m_nPrintsProElement = 5;
+        m_nElementByteSize = 2;
+    } else if (mode == ELEMENT_MODE_INT16) {
+        m_nPrintsProElement = 6;
+        m_nElementByteSize = 2;
+    } else if (mode == ELEMENT_MODE_DWORD) {
+        m_nPrintsProElement = 8;
+        m_nElementByteSize = 4;
+    } else if (mode == ELEMENT_MODE_UINT32) {
+        m_nPrintsProElement = 10;
+        m_nElementByteSize = 4;
+    } else if (mode == ELEMENT_MODE_INT32) {
+        m_nPrintsProElement = 11;
+        m_nElementByteSize = 4;
+    } else if (mode == ELEMENT_MODE_QWORD) {
+        m_nPrintsProElement = 16;
+        m_nElementByteSize = 8;
+    } else if (mode == ELEMENT_MODE_UINT64) {
+        m_nPrintsProElement = 18;
+        m_nElementByteSize = 8;
+    } else if (mode == ELEMENT_MODE_INT64) {
+        m_nPrintsProElement = 19;
+        m_nElementByteSize = 8;
+    }
+    // TODO make g_nSymbolsProElement make dynamic if UTF8
+}
+
+void XHexView::_addElementModeMenuItem(QList<XShortcuts::MENUITEM> *pListMenuItems, const QString &sText, ELEMENT_MODE mode)
+{
+    XShortcuts::MENUITEM menuItem = {};
+    menuItem.sText = sText;
+    menuItem.pRecv = this;
+    menuItem.pMethod = SLOT(changeElementMode());
+    menuItem.nSubgroups = XShortcuts::GROUPID_MODE;
+    menuItem.bIsCheckable = true;
+    menuItem.bIsChecked = (m_mode == mode);
+    menuItem.sPropertyName = "mode";
+    menuItem.varProperty = mode;
+    pListMenuItems->append(menuItem);
+}
+
+void XHexView::_addElementWidthMenuItem(QList<XShortcuts::MENUITEM> *pListMenuItems, qint32 nWidth)
+{
+    XShortcuts::MENUITEM menuItem = {};
+    menuItem.sText = QString::number(nWidth);
+    menuItem.pRecv = this;
+    menuItem.pMethod = SLOT(changeElementWidth());
+    menuItem.nSubgroups = XShortcuts::GROUPID_WIDTH;
+    menuItem.bIsCheckable = true;
+    menuItem.bIsChecked = (m_nBytesProLine == nWidth);
+    menuItem.sPropertyName = "width";
+    menuItem.varProperty = nWidth;
+    pListMenuItems->append(menuItem);
+}
+
+QString XHexView::_formatElement(char *pData, qint32 nOffset, qint32 nSize, const QString &sDataHexBuffer)
+{
+    QString sResult;
+
+    if (m_mode == ELEMENT_MODE_HEX) {
+        sResult = sDataHexBuffer.mid(nOffset * 2, 2 * nSize);
+    } else if (m_mode == ELEMENT_MODE_BYTE) {
+        sResult = sDataHexBuffer.mid(nOffset * 2, 2);
+    } else if (m_mode == ELEMENT_MODE_UINT8) {
+        sResult = QString::number(XBinary::_read_uint8(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_INT8) {
+        sResult = QString::number(XBinary::_read_int8(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_WORD) {
+        sResult = XBinary::valueToHex(XBinary::_read_uint16(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_UINT16) {
+        sResult = QString::number(XBinary::_read_uint16(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_INT16) {
+        sResult = QString::number(XBinary::_read_int16(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_DWORD) {
+        sResult = XBinary::valueToHex(XBinary::_read_uint32(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_UINT32) {
+        sResult = QString::number(XBinary::_read_uint32(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_INT32) {
+        sResult = QString::number(XBinary::_read_int32(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_QWORD) {
+        sResult = XBinary::valueToHex(XBinary::_read_uint64(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_UINT64) {
+        sResult = QString::number(XBinary::_read_uint64(pData + nOffset));
+    } else if (m_mode == ELEMENT_MODE_INT64) {
+        sResult = QString::number(XBinary::_read_int64(pData + nOffset));
+    }
+
+    return sResult;
+}
